@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>simplePagination.js - A simple jQuery pagination plugin and 3 CSS themes.</title>
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,800,600' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Allan:700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="stylesheet" type="text/css" href="simplePagination.css" />
+	<link rel="stylesheet" type="text/css" href="hl.css" />
+</head>
+<body>
+
+<a href="https://github.com/flaviusmatis/simplePagination.js"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://a248.e.akamai.net/assets.github.com/img/7afbc8b248c68eb468279e8c17986ad46549fb71/687474703a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub"></a>
+
+<div class="content">
+
+	<p class="top-links">Check out my <a href="http://flaviusmatis.github.com">GitHub page</a> for other plugins.</p>
+
+	<h1>
+		<ul>
+			<li><a href="https://github.com/flaviusmatis/simplePagination.js">Project page</a></li>
+			<li><a href="https://github.com/flaviusmatis/simplePagination.js/issues">Issues</a></li>
+		</ul>
+		<strong>simplePagination.js</strong>
+	</h1>
+
+	<p class="spacer"><strong>A simple jQuery pagination plugin and 3 CSS themes.</strong></p>
+
+	<h2>CSS Themes</h2>
+
+	<p class="spacer">"light-theme"</p>
+
+	<div class="pagination-holder clearfix">
+			<div id="light-pagination"></div>
+	</div>
+
+	<p class="spacer">"dark-theme"</p>
+
+	<div class="pagination-holder black clearfix">
+			<div id="dark-pagination"></div>
+	</div>
+
+	<p class="spacer">"compact-theme"</p>
+
+	<div class="pagination-holder clearfix">
+			<div id="compact-pagination"></div>
+	</div>
+
+	<h2>Download</h2>
+
+	<p class="spacer">Get the zip containing the plugin and the CSS themes <a href="http://flaviusmatis.github.com/simplePagination.js/simplePagination.zip">here</a>.</p>
+
+	<h2>How To Use</h2>
+
+	<p class="spacer"><strong>Step 1:</strong> together with JQuery, include jquery.simplePagination.js in your page:</p>
+
+	<div class="block">
+
+<pre name="code" class="html">&lt;script type="text/javascript" src="path_to/jquery.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="path_to/jquery.simplePagination.js"&gt;&lt;/script&gt;</pre>
+
+	</div>
+
+	<p class="spacer"><strong>Step 2:</strong> OPTIONAL - include the CSS file with the 3 default themes</p>
+
+	<div class="block">
+
+<pre name="code" class="html">&lt;link rel="stylesheet" src="path_to/simplePagination.css"&gt;&lt;/script&gt;</pre>
+
+	</div>
+
+	<p class="spacer">If you skip this step, you will need to define your own styles.</p>
+
+	<p class="spacer"><strong>Step 3:</strong> call the function on your pagination placeholder:</p>
+
+	<div class="block">
+
+<pre name="code" class="js">$(function() {
+    $(selector).pagination({
+        items: 100,
+        itemsOnPage: 10,
+        cssStyle: 'light-theme'
+    });
+});</pre>
+			
+	</div>
+
+	<p class="spacer">If necessary, you can specify the number of pages directly, via "pages" parameter, instead of "items" and "itemsOnPage" which are used by the plugin to automatically calculate the number of pages.</p>
+
+	<h2>Available options</h2>
+
+	<p><strong>items</strong> - Total number of items that will be used to calculate the pages.</p>
+	<p class="spacer">default: 1</p>
+
+	<p><strong>itemsOnPage</strong> - Number of items displayed on each page.</p>
+	<p class="spacer">default: 1</p>
+
+	<p><strong>pages</strong> - If specified, <strong>items</strong> and <strong>itemsOnPage</strong> will not be used to calculate the number of pages.</p>
+	<p class="spacer">default: 0</p>
+
+	<p><strong>displayedPages</strong> - How many page numbers should be visible. <strong>Known issue:</strong> The number of displayedPages should not be set to less than 4 or the pagination will not function correctly.</p>
+	<p class="spacer">default: 4</p>
+
+	<p><strong>edges</strong> - How many page numbers are visible at the beginning/ending of the pagination.</p>
+	<p class="spacer">default: 2</p>
+
+	<p><strong>currentPage</strong> - Which page will be selected immediately after init.</p>
+	<p class="spacer">default: 1</p>
+
+	<p><strong>hrefText</strong> - Text that will be used to create the href attribute, together with the page number.</p>
+	<p class="spacer">default: "#page-"</p>
+
+	<p><strong>prevText</strong> - Text to be display on the previous button.</p>
+	<p class="spacer">default: "Prev"</p>
+
+	<p><strong>nextText</strong> - Text to be display on the next button.</p>
+	<p class="spacer">default: "Next"</p>
+
+	<p><strong>cssStyle</strong> - The class of the CSS theme.</p>
+	<p class="spacer">default: "light-theme"</p>
+
+	<p><strong>selectOnClick</strong> - Set to false if you don't want to select the page immediately after click.</p>
+	<p class="spacer">default: true</p>
+
+	<p><strong>onClick</strong> - Function to call when a page number is cliked.</p>
+	<p class="spacer">default: nothing</p>
+
+	<p><strong>callback</strong> - Function to call when the pagination is initialized.</p>
+	<p class="spacer">default: nothing</p>
+
+	<h2>Available methods</h2>
+
+	<p><strong>selectPage</strong> - Select a page based on page number.</p>
+
+	<div class="block">
+
+<pre name="code" class="js">$(function() {
+    $(selector).pagination('selectPage', pageNumber);
+});</pre>
+
+	</div>
+
+	<p><strong>prevPage</strong> - Selects the previous page.</p>
+
+	<div class="block">
+
+<pre name="code" class="js">$(function() {
+    $(selector).pagination('prevPage');
+});</pre>
+
+	</div>
+
+	<p><strong>nextPage</strong> - Select the next page.</p>
+
+	<div class="block">
+
+<pre name="code" class="js">$(function() {
+    $(selector).pagination('nextPage');
+});</pre>
+
+	</div>
+
+	<h2>Support & Feedback</h2>
+
+	<p>For issues or suggestions please see <a href="https://github.com/flaviusmatis/simplePagination.js">simplePagination.js on Github</a>, or tweet <a href="http://twitter.com/#!/flaviusmatis">@flaviusmatis</a>.</p>
+
+	<p class="spacer">Thanks for your support!</p>
+
+</div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script type="text/javascript" src="hl-all.js"></script>
+<script type="text/javascript" src="jquery.simplePagination.js"></script>
+<script type="text/javascript" src="script.js"></script>
+
+</body>
+</html>
