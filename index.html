@@ -3,7 +3,6 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<title>simplePagination.js - A simple jQuery pagination plugin and 3 CSS themes.</title>
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,800,600' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Allan:700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" type="text/css" href="style.css" />
 	<link rel="stylesheet" type="text/css" href="simplePagination.css" />
@@ -25,7 +24,7 @@
 		<strong>simplePagination.js</strong>
 	</h1>
 
-	<p class="spacer"><strong>A simple jQuery pagination plugin and 3 CSS themes.</strong></p>
+	<p class="spacer heading">A simple jQuery pagination plugin and 3 CSS themes.</p>
 
 	<h2>CSS Themes</h2>
 
@@ -90,44 +89,88 @@
 
 	<h2>Available options</h2>
 
-	<p><strong>items</strong> - Total number of items that will be used to calculate the pages.</p>
-	<p class="spacer">default: 1</p>
-
-	<p><strong>itemsOnPage</strong> - Number of items displayed on each page.</p>
-	<p class="spacer">default: 1</p>
-
-	<p><strong>pages</strong> - If specified, <strong>items</strong> and <strong>itemsOnPage</strong> will not be used to calculate the number of pages.</p>
-	<p class="spacer">default: 0</p>
-
-	<p><strong>displayedPages</strong> - How many page numbers should be visible. <strong>Known issue:</strong> The number of displayedPages should not be set to less than 4 or the pagination will not function correctly.</p>
-	<p class="spacer">default: 4</p>
-
-	<p><strong>edges</strong> - How many page numbers are visible at the beginning/ending of the pagination.</p>
-	<p class="spacer">default: 2</p>
-
-	<p><strong>currentPage</strong> - Which page will be selected immediately after init.</p>
-	<p class="spacer">default: 1</p>
-
-	<p><strong>hrefText</strong> - Text that will be used to create the href attribute, together with the page number.</p>
-	<p class="spacer">default: "#page-"</p>
-
-	<p><strong>prevText</strong> - Text to be display on the previous button.</p>
-	<p class="spacer">default: "Prev"</p>
-
-	<p><strong>nextText</strong> - Text to be display on the next button.</p>
-	<p class="spacer">default: "Next"</p>
-
-	<p><strong>cssStyle</strong> - The class of the CSS theme.</p>
-	<p class="spacer">default: "light-theme"</p>
-
-	<p><strong>selectOnClick</strong> - Set to false if you don't want to select the page immediately after click.</p>
-	<p class="spacer">default: true</p>
-
-	<p><strong>onClick</strong> - Function to call when a page number is cliked.</p>
-	<p class="spacer">default: nothing</p>
-
-	<p><strong>callback</strong> - Function to call when the pagination is initialized.</p>
-	<p class="spacer">default: nothing</p>
+	<table>
+		<tbody>
+			<tr>
+				<td><strong>items</strong></td>
+				<td>Integer</td>
+				<td>Default: 1</td>
+				<td>Total number of items that will be used to calculate the pages.</td>
+			</tr>
+			<tr>
+				<td><strong>itemsOnPage</strong></td>
+				<td>Integer</td>
+				<td>Default: 1</td>
+				<td>Number of items displayed on each page.</td>
+			</tr>
+			<tr>
+				<td><strong>pages</strong></td>
+				<td>Integer</td>
+				<td>Optional</td>
+				<td>If specified, <strong>items</strong> and <strong>itemsOnPage</strong> will not be used to calculate the number of pages.</td>
+			</tr>
+			<tr>
+				<td><strong>displayedPages</strong></td>
+				<td>Integer</td>
+				<td>Default: 4</td>
+				<td>How many page numbers should be visible.<br/><strong>Known issue:</strong> The number of displayedPages should not be set to less than 4 or the pagination will not function properly.</td>
+			</tr>
+			<tr>
+				<td><strong>edges</strong></td>
+				<td>Integer</td>
+				<td>Default: 2</td>
+				<td>How many page numbers are visible at the beginning/ending of the pagination.</td>
+			</tr>
+			<tr>
+				<td><strong>currentPage</strong></td>
+				<td>Integer</td>
+				<td>Default: 1</td>
+				<td>Which page will be selected immediately after init.</td>
+			</tr>
+			<tr>
+				<td><strong>hrefText</strong></td>
+				<td>String</td>
+				<td>Default: "#page-"</td>
+				<td>Text that will be used to create the href attribute, together with the page number.</td>
+			</tr>
+			<tr>
+				<td><strong>prevText</strong></td>
+				<td>String</td>
+				<td>Default: "Prev"</td>
+				<td>Text to be display on the previous button.</td>
+			</tr>
+			<tr>
+				<td><strong>nextText</strong></td>
+				<td>String</td>
+				<td>Default: "Next"</td>
+				<td>Text to be display on the next button.</td>
+			</tr>
+			<tr>
+				<td><strong>cssStyle</strong></td>
+				<td>String</td>
+				<td>Default: "light-theme"</td>
+				<td>The class of the CSS theme.</td>
+			</tr>
+			<tr>
+				<td><strong>selectOnClick</strong></td>
+				<td>Boolean</td>
+				<td>Default: true</td>
+				<td>Set to false if you don't want to select the page immediately after click.</td>
+			</tr>
+			<tr>
+				<td><strong>onClick</strong></td>
+				<td>Function</td>
+				<td>Optional</td>
+				<td>Function to call when a page number is cliked.</td>
+			</tr>
+			<tr>
+				<td><strong>callback</strong></td>
+				<td>Function</td>
+				<td>Optional</td>
+				<td>Function to call when the pagination is initialized.</td>
+			</tr>
+		</tbody>
+	</table>
 
 	<h2>Available methods</h2>
 

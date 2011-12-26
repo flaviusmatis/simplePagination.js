@@ -12,9 +12,8 @@
 
 body {
 	background: #F6F6F6;
-	font-family: 'Open Sans', sans-serif;
+	font-family: Arial, Helvetica, sans-serif;
 	font-size: 16px;
-	font-weight: 400;
 	color: #333;
 	padding: 0;
 	margin: 0;
@@ -24,7 +23,7 @@ a {
 	color: #000;
 	border-bottom: 1px solid #FF6000;
 	text-decoration: none;
-	font-weight: 600;
+	font-weight: bold;
 }
 
 a:hover {
@@ -33,7 +32,7 @@ a:hover {
 }
 
 strong {
-	font-weight: 600;
+	font-weight: bold;
 }
 
 pre {
@@ -62,7 +61,7 @@ h1 strong {
 h1 ul {
 	float: right;
 	list-style: none;
-	font-size: 14px;
+	font-size: 13px;
 	text-transform: uppercase;
 	position: absolute;
 	right: 10px;
@@ -94,7 +93,7 @@ h1 ul li a:hover {
 }
 
 h2 {
-	font-weight: 700;
+	font-weight: bold;
 	font-size: 18px;
 	padding: 0 0 5px;
 	margin-top: 0;
@@ -104,11 +103,11 @@ h2 {
 }
 
 h2 span {
-	font-weight: 400;
+	font-weight: normal;
 }
 
 h3 {
-	font-weight: 700;
+	font-weight: bold;
 	font-size: 18px;
 }
 
@@ -120,6 +119,10 @@ p {
 
 p.spacer {
 	margin-bottom: 20px;
+}
+
+p.heading {
+	font-size: 18px;
 }
 
 p.top-links {
@@ -169,4 +172,21 @@ p.top-links {
 	background: #444;
 	border: 1px solid #333;
 	border-radius: 2px;
+}
+
+table {
+	margin: 0 20px 30px;
+}
+
+table td {
+	padding: 10px 30px 10px 0;
+	font-size: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+	vertical-align: top;
+	border-bottom: 1px dotted #CCC;
+	line-height: 1.5;
+}
+
+table tr td:last-child {
+	padding-right: 0;
 }
