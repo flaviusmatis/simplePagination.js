@@ -121,10 +121,10 @@
 			if (pageIndex == o.currentPage) {
 				$link = $('<span class="current">' + (options.text) + '</span>');
 			} else {
-				$link = $('<a href="' + o.hrefText + (pageIndex + 1) + '">' + (options.text) + '</a>');
-				$link.click(function(){
+				$link = $('<a href="' + o.hrefText + (pageIndex + 1) + '" class="page-link">' + (options.text) + '</a>');
+				$link.click(function(e){
 					methods._selectPage.call(panel, pageIndex);
-					return false;
+					e.preventDefault();
 				});
 			}
 			if (options.classes) {
