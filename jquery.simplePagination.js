@@ -124,7 +124,6 @@
 				$link = $('<a href="' + o.hrefText + (pageIndex + 1) + '" class="page-link">' + (options.text) + '</a>');
 				$link.click(function(e){
 					methods._selectPage.call(panel, pageIndex);
-					e.preventDefault();
 				});
 			}
 			if (options.classes) {
