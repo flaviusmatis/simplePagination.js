@@ -1,5 +1,5 @@
 /**
-* simplePagination.js v1.0.0
+* simplePagination.js v1.1
 * A simple jQuery pagination plugin.
 * Author: Flavius Matis - http://flaviusmatis.github.com/
 * URL: https://github.com/flaviusmatis/simplePagination.js
@@ -13,7 +13,7 @@
 				items: 1,
 				itemsOnPage: 1,
 				pages: 0,
-				displayedPages: 4,
+				displayedPages: 5,
 				edges: 2,
 				currentPage: 1,
 				hrefText: '#page-',
@@ -33,7 +33,7 @@
 			return this.each(function() {
 				o.pages = o.pages ? o.pages : Math.ceil(o.items / o.itemsOnPage) ? Math.ceil(o.items / o.itemsOnPage) : 1;
 				o.currentPage = o.currentPage - 1;
-				o.halfDisplayed = Math.ceil(o.displayedPages / 2);
+				o.halfDisplayed = o.displayedPages / 2;
 				$(this).addClass(o.cssStyle).data('pagination', o);
 				methods._draw.call(this);
 				o.callback(o.currentPage, this);
@@ -61,7 +61,8 @@
 		_draw: function() {
 			var $panel = $(this).empty(),
 				o = $panel.data('pagination'),
-				interval = methods._getInterval(o);
+				interval = methods._getInterval(o),
+				i;
 
 			// Generate Prev link
 			if (o.prevText) {
@@ -71,7 +72,7 @@
 			// Generate start edges
 			if (interval.start > 0 && o.edges > 0) {
 				var end = Math.min(o.edges, interval.start);
-				for (var i = 0; i < end; i++) {
+				for (i = 0; i < end; i++) {
 					methods._appendItem(this, i);
 				}
 				if (o.edges < interval.start && o.ellipseText) {
@@ -80,7 +81,7 @@
 			}
 
 			// Generate interval links
-			for (var i = interval.start; i < interval.end; i++) {
+			for (i = interval.start; i < interval.end; i++) {
 				methods._appendItem(this, i);
 			}
 
@@ -90,7 +91,7 @@
 					$panel.append('<span class="ellipse">' + o.ellipseText + '</span>');
 				}
 				var begin = Math.max(o.pages - o.edges, interval.end);
-				for (var i = begin; i < o.pages; i++) {
+				for (i = begin; i < o.pages; i++) {
 					methods._appendItem(this, i);
 				}
 			}
@@ -103,8 +104,8 @@
 
 		_getInterval: function(o) {
 			return {
-				start: o.currentPage > o.halfDisplayed ? Math.max(Math.min(o.currentPage - o.halfDisplayed, (o.pages - o.displayedPages)), 0) : 0,
-				end: o.currentPage > o.halfDisplayed ? Math.min(o.currentPage + o.halfDisplayed, o.pages) : Math.min(o.displayedPages, o.pages)
+				start: Math.ceil(o.currentPage > o.halfDisplayed ? Math.max(Math.min(o.currentPage - o.halfDisplayed, (o.pages - o.displayedPages)), 0) : 0),
+				end: Math.ceil(o.currentPage > o.halfDisplayed ? Math.min(o.currentPage + o.halfDisplayed, o.pages) : Math.min(o.displayedPages, o.pages))
 			};
 		},
 
@@ -122,7 +123,7 @@
 				$link = $('<span class="current">' + (options.text) + '</span>');
 			} else {
 				$link = $('<a href="' + o.hrefText + (pageIndex + 1) + '" class="page-link">' + (options.text) + '</a>');
-				$link.click(function(e){
+				$link.click(function(){
 					methods._selectPage.call(panel, pageIndex);
 				});
 			}
