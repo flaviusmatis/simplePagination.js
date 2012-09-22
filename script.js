@@ -2,18 +2,18 @@ DlHighlight.HELPERS.highlightByName("code", "pre");
 
 $('#light-pagination').pagination({
 	pages: 20,
-	cssStyle: 'light-theme',
-	displayedPages: 5
+	cssStyle: 'light-theme'
 });
 
 $('#dark-pagination').pagination({
-	pages: 120,
+	pages: 20,
 	cssStyle: 'dark-theme',
-	displayedPages: 5
+	displayedPages: 3,
+	edges: 3
 });
 
 $('#compact-pagination').pagination({
-	pages: 120,
+	pages: 70,
 	cssStyle: 'compact-theme',
 	displayedPages: 7
 });
