@@ -1,5 +1,5 @@
 /**
-* simplePagination.js v1.1
+* simplePagination.js v1.2
 * A simple jQuery pagination plugin.
 * Author: Flavius Matis - http://flaviusmatis.github.com/
 * URL: https://github.com/flaviusmatis/simplePagination.js
@@ -22,11 +22,12 @@
 				ellipseText: '&hellip;',
 				cssStyle: 'light-theme',
 				selectOnClick: true,
-				onClick: function() {
-					return false;
+				onPageClick: function(pageNumber) {
+					// Callback triggered when a page is clicked
+					// Page number is given as an optional parameter
 				},
-				callback: function() {
-					return false;
+				onInit: function() {
+					// Callback triggered immediately after initialization
 				}
 			}, options || {});
 
@@ -36,7 +37,7 @@
 				o.halfDisplayed = o.displayedPages / 2;
 				$(this).addClass(o.cssStyle).data('pagination', o);
 				methods._draw.call(this);
-				o.callback(o.currentPage, this);
+				o.onInit();
 			});
 		},
 
@@ -138,10 +139,10 @@
 			var o = $(this).data('pagination');
 			o.currentPage = pageIndex;
 			if (o.selectOnClick) {
-				o.onClick(pageIndex + 1, $(this));
+				o.onPageClick(pageIndex + 1);
 				methods._draw.call(this);
 			} else {
-				o.onClick(pageIndex + 1, $(this));
+				o.onPageClick(pageIndex + 1);
 			}
 		}
 
