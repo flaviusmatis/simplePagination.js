@@ -138,11 +138,9 @@
 		_selectPage: function(pageIndex) {
 			var o = $(this).data('pagination');
 			o.currentPage = pageIndex;
+			o.onPageClick(pageIndex + 1);
 			if (o.selectOnClick) {
-				o.onPageClick(pageIndex + 1);
 				methods._draw.call(this);
-			} else {
-				o.onPageClick(pageIndex + 1);
 			}
 		}
 
