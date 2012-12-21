@@ -1,8 +1,11 @@
 /**
-* simplePagination.js v1.2
+* simplePagination.js v1.3
 * A simple jQuery pagination plugin.
-* Author: Flavius Matis - http://flaviusmatis.github.com/
-* URL: https://github.com/flaviusmatis/simplePagination.js
+* http://flaviusmatis.github.com/simplePagination.js/
+*
+* Copyright 2012, Flavius Matis
+* Released under the MIT license.
+* http://flaviusmatis.github.com/license.html
 */
 
 (function($){
@@ -31,50 +34,59 @@
 				}
 			}, options || {});
 
-			return this.each(function() {
-				o.pages = o.pages ? o.pages : Math.ceil(o.items / o.itemsOnPage) ? Math.ceil(o.items / o.itemsOnPage) : 1;
-				o.currentPage = o.currentPage - 1;
-				o.halfDisplayed = o.displayedPages / 2;
-				$(this).addClass(o.cssStyle).data('pagination', o);
-				methods._draw.call(this);
-				o.onInit();
+			var self = this;
+
+			o.pages = o.pages ? o.pages : Math.ceil(o.items / o.itemsOnPage) ? Math.ceil(o.items / o.itemsOnPage) : 1;
+			o.currentPage = o.currentPage - 1;
+			o.halfDisplayed = o.displayedPages / 2;
+
+			this.each(function() {
+				self.addClass(o.cssStyle).data('pagination', o);
+				methods._draw.call(self);
 			});
+
+			o.onInit();
+
+			return this;
 		},
 
 		selectPage: function(page) {
 			methods._selectPage.call(this, page - 1);
+			return this;
 		},
 
 		prevPage: function() {
-			var o = $(this).data('pagination');
+			var o = this.data('pagination');
 			if (o.currentPage > 0) {
 				methods._selectPage.call(this, o.currentPage - 1);
 			}
+			return this;
 		},
 
 		nextPage: function() {
-			var o = $(this).data('pagination');
+			var o = this.data('pagination');
 			if (o.currentPage < o.pages - 1) {
 				methods._selectPage.call(this, o.currentPage + 1);
 			}
+			return this;
 		},
 
 		_draw: function() {
-			var $panel = $(this).empty(),
+			var $panel = this.empty(),
 				o = $panel.data('pagination'),
 				interval = methods._getInterval(o),
 				i;
 
 			// Generate Prev link
 			if (o.prevText) {
-				methods._appendItem(this, o.currentPage - 1, {text: o.prevText, classes: 'prev'});
+				methods._appendItem.call(this, o.currentPage - 1, {text: o.prevText, classes: 'prev'});
 			}
 
 			// Generate start edges
 			if (interval.start > 0 && o.edges > 0) {
 				var end = Math.min(o.edges, interval.start);
 				for (i = 0; i < end; i++) {
-					methods._appendItem(this, i);
+					methods._appendItem.call(this, i);
 				}
 				if (o.edges < interval.start && o.ellipseText) {
 					$panel.append('<span class="ellipse">' + o.ellipseText + '</span>');
@@ -83,7 +95,7 @@
 
 			// Generate interval links
 			for (i = interval.start; i < interval.end; i++) {
-				methods._appendItem(this, i);
+				methods._appendItem.call(this, i);
 			}
 
 			// Generate end edges
@@ -93,13 +105,13 @@
 				}
 				var begin = Math.max(o.pages - o.edges, interval.end);
 				for (i = begin; i < o.pages; i++) {
-					methods._appendItem(this, i);
+					methods._appendItem.call(this, i);
 				}
 			}
 
 			// Generate Next link
 			if (o.nextText) {
-				methods._appendItem(this, o.currentPage + 1, {text: o.nextText, classes: 'next'});
+				methods._appendItem.call(this, o.currentPage + 1, {text: o.nextText, classes: 'next'});
 			}
 		},
 
@@ -110,8 +122,8 @@
 			};
 		},
 
-		_appendItem: function(panel, pageIndex, opts) {
-			var options, $link, o = $(panel).data('pagination');
+		_appendItem: function(pageIndex, opts) {
+			var self = this, options, $link, o = self.data('pagination');
 
 			pageIndex = pageIndex < 0 ? 0 : (pageIndex < o.pages ? pageIndex : o.pages - 1);
 
@@ -125,22 +137,25 @@
 			} else {
 				$link = $('<a href="' + o.hrefText + (pageIndex + 1) + '" class="page-link">' + (options.text) + '</a>');
 				$link.click(function(){
-					methods._selectPage.call(panel, pageIndex);
+					methods._selectPage.call(self, pageIndex);
 				});
 			}
+
 			if (options.classes) {
 				$link.addClass(options.classes);
 			}
 
-			$(panel).append($link);
+			self.append($link);
 		},
 
 		_selectPage: function(pageIndex) {
-			var o = $(this).data('pagination');
+			var o = this.data('pagination');
 			o.currentPage = pageIndex;
-			o.onPageClick(pageIndex + 1);
 			if (o.selectOnClick) {
+				o.onPageClick(pageIndex + 1);
 				methods._draw.call(this);
+			} else {
+				o.onPageClick(pageIndex + 1);
 			}
 		}
 
