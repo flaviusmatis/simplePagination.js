@@ -63,11 +63,13 @@
 	background: -o-linear-gradient(top, #bbbbbb 0%,#efefef 100%); /* Opera11.10+ */
 	background: -ms-linear-gradient(top, #bbbbbb 0%,#efefef 100%); /* IE10+ */
 	background: linear-gradient(top, #bbbbbb 0%,#efefef 100%); /* W3C */
+	cursor: default;
 }
 
 .compact-theme .ellipse {
 	background: #EAEAEA;
 	padding: 0 10px;
+	cursor: default;
 }
 
 /*------------------------------------*\
@@ -112,6 +114,7 @@
 	color: #FFF;
 	border-color: #444;
 	box-shadow: 0 1px 0 rgba(255,255,255,1), 0 0 2px rgba(0, 0, 0, 0.3) inset;
+	cursor: default;
 }
 
 .light-theme .ellipse {
@@ -120,6 +123,7 @@
 	border-radius: 0;
 	box-shadow: none;
 	font-weight: bold;
+	cursor: default;
 }
 
 /*------------------------------------*\
@@ -164,6 +168,7 @@
 	color: #FFF;
 	border-color: #000;
 	box-shadow: 0 1px 0 rgba(255,255,255,0.2), 0 0 1px 1px rgba(0, 0, 0, 0.1) inset;
+	cursor: default;
 }
 
 .dark-theme .ellipse {
@@ -172,4 +177,5 @@
 	border-radius: 0;
 	box-shadow: none;
 	font-weight: bold;
+	cursor: default;
 }
