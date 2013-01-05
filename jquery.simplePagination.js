@@ -1,5 +1,5 @@
 /**
-* simplePagination.js v1.3
+* simplePagination.js v1.4
 * A simple jQuery pagination plugin.
 * http://flaviusmatis.github.com/simplePagination.js/
 *
@@ -71,11 +71,39 @@
 			return this;
 		},
 
+		destroy: function(){
+			this.empty();
+			return this;
+		},
+
+		redraw: function(){
+			methods._draw.call(this);
+			return this;
+		},
+
+		disable: function(){
+			var o = this.data('pagination');
+			o.disabled = true;
+			this.data('pagination', o);
+			methods._draw.call(this);
+			return this;
+		},
+
+		enable: function(){
+			var o = this.data('pagination');
+			o.disabled = false;
+			this.data('pagination', o);
+			methods._draw.call(this);
+			return this;
+		},
+
 		_draw: function() {
-			var $panel = this.empty(),
+			var $panel = this,
 				o = $panel.data('pagination'),
 				interval = methods._getInterval(o),
 				i;
+
+			methods.destroy.call(this);
 
 			// Generate Prev link
 			if (o.prevText) {
@@ -132,7 +160,7 @@
 				classes: ''
 			}, opts || {});
 
-			if (pageIndex == o.currentPage) {
+			if (pageIndex == o.currentPage || o.disabled) {
 				$link = $('<span class="current">' + (options.text) + '</span>');
 			} else {
 				$link = $('<a href="' + o.hrefText + (pageIndex + 1) + '" class="page-link">' + (options.text) + '</a>');
