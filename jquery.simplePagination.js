@@ -1,5 +1,5 @@
 /**
-* simplePagination.js v1.3
+* simplePagination.js v1.4
 * A simple jQuery pagination plugin.
 * http://flaviusmatis.github.com/simplePagination.js/
 *
