@@ -117,8 +117,10 @@
 				for (i = 0; i < end; i++) {
 					methods._appendItem.call(this, i);
 				}
-				if (o.edges < interval.start && o.ellipseText) {
+				if (o.edges < interval.start && (interval.start - o.edges != 1)) {
 					$panel.append('<span class="ellipse">' + o.ellipseText + '</span>');
+				} else if (interval.start - o.edges == 1) {
+					methods._appendItem.call(this, o.edges);
 				}
 			}
 
@@ -129,8 +131,10 @@
 
 			// Generate end edges
 			if (interval.end < o.pages && o.edges > 0) {
-				if (o.pages - o.edges > interval.end && o.ellipseText) {
+				if (o.pages - o.edges > interval.end && (o.pages - o.edges - interval.end != 1)) {
 					$panel.append('<span class="ellipse">' + o.ellipseText + '</span>');
+				} else if (o.pages - o.edges - interval.end == 1) {
+					methods._appendItem.call(this, interval.end++);
 				}
 				var begin = Math.max(o.pages - o.edges, interval.end);
 				for (i = begin; i < o.pages; i++) {
