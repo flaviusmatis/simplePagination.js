@@ -170,7 +170,7 @@
 			} else {
 				$link = $('<a href="' + o.hrefTextPrefix + (pageIndex + 1) + o.hrefTextSuffix + '" class="page-link">' + (options.text) + '</a>');
 				$link.click(function(){
-					methods._selectPage.call(self, pageIndex);
+					return methods._selectPage.call(self, pageIndex);
 				});
 			}
 
@@ -185,11 +185,9 @@
 			var o = this.data('pagination');
 			o.currentPage = pageIndex;
 			if (o.selectOnClick) {
-				o.onPageClick(pageIndex + 1);
 				methods._draw.call(this);
-			} else {
-				o.onPageClick(pageIndex + 1);
 			}
+			return o.onPageClick(pageIndex + 1);
 		}
 
 	};
