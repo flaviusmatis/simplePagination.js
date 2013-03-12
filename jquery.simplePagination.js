@@ -52,9 +52,16 @@
 
 			return this;
 		},
-
+		getPages: function() {
+			var o = this.data('pagination');
+			return o.pages;
+		},
+		getCurrentPage: function () {
+			return this.data('pagination')['currentPage'] + 1;
+		},
 		selectPage: function(page) {
-			methods._selectPage.call(this, Math.min(o.pages,page) - 1);
+			var o = this.data('pagination');
+			methods._selectPage.call(this, Math.max(Math.min(o.pages,page),1) - 1);
 			return this;
 		},
 
@@ -218,8 +225,9 @@
 
 })(jQuery);
 
-//TODO: add stupidity check...on selectPage, verify number is within bounds
-//TODO: add helper...get total pages
+//TODO: add stupidity check...on selectPage, verify number is within bounds ... DONE
+//TODO: add helper...get total pages ... DONE
+//TODO: add helper...get current page ... DONE
 //TODO: add helper...track pages viewed...track unique pages viewed
 //TODO: add first/last links  ... DONE
 //TODO: pass event along with item click ... DONE
