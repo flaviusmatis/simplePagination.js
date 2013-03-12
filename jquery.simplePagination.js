@@ -183,8 +183,8 @@
 				$link = $('<span class="current">' + (options.text) + '</span>');
 			} else {
 				$link = $('<a href="' + o.hrefTextPrefix + (pageIndex + 1) + o.hrefTextSuffix + '" class="page-link">' + (options.text) + '</a>');
-				$link.click(function(){
-					return methods._selectPage.call(self, pageIndex);
+				$link.click(function(evt){
+					return methods._selectPage.call(self, pageIndex, evt); // curries the event, or undefined
 				});
 			}
 
@@ -195,13 +195,13 @@
 			self.append($link);
 		},
 
-		_selectPage: function(pageIndex) {
+		_selectPage: function(pageIndex, evt) {
 			var o = this.data('pagination');
 			o.currentPage = pageIndex;
 			if (o.selectOnClick) {
 				methods._draw.call(this);
 			}
-			return o.onPageClick(pageIndex + 1);
+			return o.onPageClick(pageIndex + 1, evt);
 		}
 
 	};
@@ -225,4 +225,4 @@
 //TODO: add helper...get total pages
 //TODO: add helper...track pages viewed...track unique pages viewed
 //TODO: add first/last links  ... DONE
-//TODO: pass event along with item click
+//TODO: pass event along with item click ... DONE
