@@ -108,15 +108,13 @@
 
 			methods.destroy.call(this);
 
-			if(o.pages > 10) {
-				// Generate First link
-				if (o.permaFirstText) {
-					methods._appendItem.call(this, 0, {text: o.permaFirstText, classes: 'jumpFirst'});
-				}
-				// Generate Prev link
-				if (o.prevText) {
-					methods._appendItem.call(this, o.currentPage - 1, {text: o.prevText, classes: 'prev'});
-				}
+			// Generate First link
+			if (o.permaFirstText) {
+				methods._appendItem.call(this, 0, {text: o.permaFirstText, classes: 'jumpFirst'});
+			}
+			// Generate Prev link
+			if (o.prevText) {
+				methods._appendItem.call(this, o.currentPage - 1, {text: o.prevText, classes: 'prev'});
 			}
 
 			// Generate start edges
@@ -150,15 +148,14 @@
 				}
 			}
 
-			if(o.pages > 10) {
-				// Generate Next link
-				if (o.nextText) {
-					methods._appendItem.call(this, o.currentPage + 1, {text: o.nextText, classes: 'next'});
-				}
-				// Generate PermaLast link
-				if (o.permaLastText) {
-					methods._appendItem.call(this, o.pages, {text: o.permaLastText, classes: 'jumpLast'});
-				}
+
+			// Generate Next link
+			if (o.nextText) {
+				methods._appendItem.call(this, o.currentPage + 1, {text: o.nextText, classes: 'next'});
+			}
+			// Generate PermaLast link
+			if (o.permaLastText) {
+				methods._appendItem.call(this, o.pages, {text: o.permaLastText, classes: 'jumpLast'});
 			}
 		},
 
