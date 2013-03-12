@@ -54,7 +54,7 @@
 		},
 
 		selectPage: function(page) {
-			methods._selectPage.call(this, page - 1);
+			methods._selectPage.call(this, Math.min(o.pages,page) - 1);
 			return this;
 		},
 
