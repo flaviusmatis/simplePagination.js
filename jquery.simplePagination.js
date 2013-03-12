@@ -1,12 +1,12 @@
 /**
-* simplePagination.js v1.4
-* A simple jQuery pagination plugin.
-* http://flaviusmatis.github.com/simplePagination.js/
-*
-* Copyright 2012, Flavius Matis
-* Released under the MIT license.
-* http://flaviusmatis.github.com/license.html
-*/
+ * simplePagination.js v1.4
+ * A simple jQuery pagination plugin.
+ * http://flaviusmatis.github.com/simplePagination.js/
+ *
+ * Copyright 2012, Flavius Matis
+ * Released under the MIT license.
+ * http://flaviusmatis.github.com/license.html
+ */
 
 (function($){
 
@@ -21,7 +21,9 @@
 				currentPage: 1,
 				hrefTextPrefix: '#page-',
 				hrefTextSuffix: '',
+				permaFirstText: '&lt;',
 				prevText: 'Prev',
+				permaLastText: '&gt;',
 				nextText: 'Next',
 				ellipseText: '&hellip;',
 				cssStyle: 'light-theme',
@@ -106,9 +108,15 @@
 
 			methods.destroy.call(this);
 
-			// Generate Prev link
-			if (o.prevText) {
-				methods._appendItem.call(this, o.currentPage - 1, {text: o.prevText, classes: 'prev'});
+			if(o.pages > 10) {
+				// Generate First link
+				if (o.permaFirstText) {
+					methods._appendItem.call(this, 0, {text: o.permaFirstText, classes: 'jumpFirst'});
+				}
+				// Generate Prev link
+				if (o.prevText) {
+					methods._appendItem.call(this, o.currentPage - 1, {text: o.prevText, classes: 'prev'});
+				}
 			}
 
 			// Generate start edges
@@ -142,9 +150,15 @@
 				}
 			}
 
-			// Generate Next link
-			if (o.nextText) {
-				methods._appendItem.call(this, o.currentPage + 1, {text: o.nextText, classes: 'next'});
+			if(o.pages > 10) {
+				// Generate Next link
+				if (o.nextText) {
+					methods._appendItem.call(this, o.currentPage + 1, {text: o.nextText, classes: 'next'});
+				}
+				// Generate PermaLast link
+				if (o.permaLastText) {
+					methods._appendItem.call(this, o.pages, {text: o.permaLastText, classes: 'jumpLast'});
+				}
 			}
 		},
 
@@ -191,7 +205,7 @@
 		}
 
 	};
-	
+
 	$.fn.pagination = function(method) {
 
 		// Method calling logic
@@ -206,3 +220,9 @@
 	};
 
 })(jQuery);
+
+//TODO: add stupidity check...on selectPage, verify number is within bounds
+//TODO: add helper...get total pages
+//TODO: add helper...track pages viewed...track unique pages viewed
+//TODO: add first/last links  ... DONE
+//TODO: pass event along with item click
