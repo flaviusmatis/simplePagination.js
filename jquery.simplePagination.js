@@ -26,7 +26,7 @@
 				ellipseText: '&hellip;',
 				cssStyle: 'light-theme',
 				selectOnClick: true,
-				onPageClick: function(pageNumber) {
+				onPageClick: function(pageNumber, event) {
 					// Callback triggered when a page is clicked
 					// Page number is given as an optional parameter
 				},
@@ -169,8 +169,8 @@
 				$link = $('<span class="current">' + (options.text) + '</span>');
 			} else {
 				$link = $('<a href="' + o.hrefTextPrefix + (pageIndex + 1) + o.hrefTextSuffix + '" class="page-link">' + (options.text) + '</a>');
-				$link.click(function(){
-					return methods._selectPage.call(self, pageIndex);
+				$link.click(function(event){
+					return methods._selectPage.call(self, pageIndex, event);
 				});
 			}
 
@@ -181,13 +181,13 @@
 			self.append($link);
 		},
 
-		_selectPage: function(pageIndex) {
+		_selectPage: function(pageIndex, event) {
 			var o = this.data('pagination');
 			o.currentPage = pageIndex;
 			if (o.selectOnClick) {
 				methods._draw.call(this);
 			}
-			return o.onPageClick(pageIndex + 1);
+			return o.onPageClick(pageIndex + 1, event);
 		}
 
 	};
