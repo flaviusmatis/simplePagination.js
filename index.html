@@ -164,10 +164,10 @@
 				<td>Set to false if you don't want to select the page immediately after click.</td>
 			</tr>
 			<tr>
-				<td><strong>onPageClick</strong>(pageNumber)</td>
+				<td><strong>onPageClick</strong>(pageNumber, event)</td>
 				<td>Function</td>
 				<td>Optional</td>
-				<td>Function to call when a page is clicked.<br/>Page number is given as an optional parameter.</td>
+				<td>Function to call when a page is clicked.<br/>Page number and event are optional parameters.</td>
 			</tr>
 			<tr>
 				<td><strong>onInit</strong></td>
@@ -206,6 +206,26 @@
 
 <pre name="code" class="js">$(function() {
     $(selector).pagination('nextPage');
+});</pre>
+
+	</div>
+
+	<p><strong>getPagesCount</strong> - Returns the total number of pages.</p>
+
+	<div class="block">
+
+<pre name="code" class="js">$(function() {
+    $(selector).pagination('getPagesCount');
+});</pre>
+
+	</div>
+
+	<p><strong>getCurrentPage</strong> - Returns the current page number.</p>
+
+	<div class="block">
+
+<pre name="code" class="js">$(function() {
+    $(selector).pagination('getCurrentPage');
 });</pre>
 
 	</div>
