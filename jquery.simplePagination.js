@@ -72,6 +72,14 @@
 			return this;
 		},
 
+		getPagesCount: function() {
+			return this.data('pagination').pages;
+		},
+
+		getCurrentPage: function () {
+			return this.data('pagination').currentPage + 1;
+		},
+
 		destroy: function(){
 			this.empty();
 			return this;
