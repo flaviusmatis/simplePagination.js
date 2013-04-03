@@ -25,6 +25,7 @@
 				nextText: 'Next',
 				ellipseText: '&hellip;',
 				cssStyle: 'light-theme',
+                bootstrap: false,
 				selectOnClick: true,
 				onPageClick: function(pageNumber, event) {
 					// Callback triggered when a page is clicked
@@ -126,7 +127,10 @@
 					methods._appendItem.call(this, i);
 				}
 				if (o.edges < interval.start && (interval.start - o.edges != 1)) {
-					$panel.append('<span class="ellipse">' + o.ellipseText + '</span>');
+					if(o.bootstrap)
+                        $panel.append('<li class="disabled"><span>' + o.ellipseText + '</span></li>');
+                    else
+                        $panel.append('<span class="ellipse">' + o.ellipseText + '</span>');
 				} else if (interval.start - o.edges == 1) {
 					methods._appendItem.call(this, o.edges);
 				}
@@ -140,7 +144,11 @@
 			// Generate end edges
 			if (interval.end < o.pages && o.edges > 0) {
 				if (o.pages - o.edges > interval.end && (o.pages - o.edges - interval.end != 1)) {
-					$panel.append('<span class="ellipse">' + o.ellipseText + '</span>');
+					if(o.bootstrap)
+                        $panel.append('<li class="disabled"><span>' + o.ellipseText + '</span></li>');
+                    else
+                        $panel.append('<span class="ellipse">' + o.ellipseText + '</span>');
+                        
 				} else if (o.pages - o.edges - interval.end == 1) {
 					methods._appendItem.call(this, interval.end++);
 				}
@@ -174,9 +182,15 @@
 			}, opts || {});
 
 			if (pageIndex == o.currentPage || o.disabled) {
-				$link = $('<span class="current">' + (options.text) + '</span>');
+				if(o.bootstrap)
+                    $link = $('<li class="active"><span>' + (options.text) + '</span></li>');
+                else
+                    $link = $('<span class="current">' + (options.text) + '</span>');
 			} else {
-				$link = $('<a href="' + o.hrefTextPrefix + (pageIndex + 1) + o.hrefTextSuffix + '" class="page-link">' + (options.text) + '</a>');
+				if(o.bootstrap)
+                    $link = $('<li><a href="' + o.hrefTextPrefix + (pageIndex + 1) + o.hrefTextSuffix + '"> ' + (options.text) + '</a></li>');
+                else
+                    $link = $('<a href="' + o.hrefTextPrefix + (pageIndex + 1) + o.hrefTextSuffix + '" class="page-link">' + (options.text) + '</a>');
 				$link.click(function(event){
 					return methods._selectPage.call(self, pageIndex, event);
 				});
