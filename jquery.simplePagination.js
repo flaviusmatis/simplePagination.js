@@ -1,5 +1,5 @@
 /**
-* simplePagination.js v1.4
+* simplePagination.js v1.5
 * A simple jQuery pagination plugin.
 * http://flaviusmatis.github.com/simplePagination.js/
 *
@@ -42,7 +42,7 @@
 			o.halfDisplayed = o.displayedPages / 2;
 
 			this.each(function() {
-				self.addClass(o.cssStyle).data('pagination', o);
+				self.addClass(o.cssStyle + ' simple-pagination').data('pagination', o);
 				methods._draw.call(self);
 			});
 
@@ -107,12 +107,13 @@
 		},
 
 		_draw: function() {
-			var $panel = this,
-				o = $panel.data('pagination'),
+			var	o = this.data('pagination'),
 				interval = methods._getInterval(o),
 				i;
 
 			methods.destroy.call(this);
+
+			var $panel = this.prop("tagName") === "UL" ? this : $('<ul></ul>').appendTo(this);
 
 			// Generate Prev link
 			if (o.prevText) {
@@ -126,7 +127,7 @@
 					methods._appendItem.call(this, i);
 				}
 				if (o.edges < interval.start && (interval.start - o.edges != 1)) {
-					$panel.append('<span class="ellipse">' + o.ellipseText + '</span>');
+					$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
 				} else if (interval.start - o.edges == 1) {
 					methods._appendItem.call(this, o.edges);
 				}
@@ -140,7 +141,7 @@
 			// Generate end edges
 			if (interval.end < o.pages && o.edges > 0) {
 				if (o.pages - o.edges > interval.end && (o.pages - o.edges - interval.end != 1)) {
-					$panel.append('<span class="ellipse">' + o.ellipseText + '</span>');
+					$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
 				} else if (o.pages - o.edges - interval.end == 1) {
 					methods._appendItem.call(this, interval.end++);
 				}
@@ -164,7 +165,7 @@
 		},
 
 		_appendItem: function(pageIndex, opts) {
-			var self = this, options, $link, o = self.data('pagination');
+			var self = this, options, $link, o = self.data('pagination'), $linkWrapper = $('<li></li>'), $ul = self.find('ul');
 
 			pageIndex = pageIndex < 0 ? 0 : (pageIndex < o.pages ? pageIndex : o.pages - 1);
 
@@ -174,6 +175,11 @@
 			}, opts || {});
 
 			if (pageIndex == o.currentPage || o.disabled) {
+				if (o.disabled) {
+					$linkWrapper.addClass('disabled');
+				} else {
+					$linkWrapper.addClass('active');
+				}
 				$link = $('<span class="current">' + (options.text) + '</span>');
 			} else {
 				$link = $('<a href="' + o.hrefTextPrefix + (pageIndex + 1) + o.hrefTextSuffix + '" class="page-link">' + (options.text) + '</a>');
@@ -186,7 +192,13 @@
 				$link.addClass(options.classes);
 			}
 
-			self.append($link);
+			$linkWrapper.append($link);
+
+			if ($ul.length) {
+				$ul.append($linkWrapper);
+			} else {
+				self.append($linkWrapper);
+			}
 		},
 
 		_selectPage: function(pageIndex, event) {
