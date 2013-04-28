@@ -4,15 +4,33 @@
 * URL: https://github.com/flaviusmatis/simplePagination.js
 */
 
-/*------------------------------------*\
-	Compact Theme Styles
-\*------------------------------------*/
+ul.simple-pagination {
+	list-style: none;
+}
 
-.compact-theme {
+.simple-pagination {
 	display: block;
 	overflow: hidden;
 	padding: 0 5px 5px 0;
+	margin: 0;
 }
+
+.simple-pagination ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.simple-pagination li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	float: left;
+}
+
+/*------------------------------------*\
+	Compact Theme Styles
+\*------------------------------------*/
 
 .compact-theme a, .compact-theme span {
 	float: left;
@@ -76,12 +94,6 @@
 	Light Theme Styles
 \*------------------------------------*/
 
-.light-theme {
-	display: block;
-	overflow: hidden;
-	padding: 0 5px 5px 0;
-}
-
 .light-theme a, .light-theme span {
 	float: left;
 	color: #666;
@@ -129,12 +141,6 @@
 /*------------------------------------*\
 	Dark Theme Styles
 \*------------------------------------*/
-
-.dark-theme {
-	display: block;
-	overflow: hidden;
-	padding: 0 5px 5px 0;
-}
 
 .dark-theme a, .dark-theme span {
 	float: left;
