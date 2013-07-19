@@ -1,5 +1,5 @@
 /**
-* simplePagination.js v1.5
+* simplePagination.js v1.6
 * A simple jQuery pagination plugin.
 * http://flaviusmatis.github.com/simplePagination.js/
 *
@@ -104,6 +104,14 @@
 			this.data('pagination', o);
 			methods._draw.call(this);
 			return this;
+		},
+
+		updateItems: function (newItems) {
+			var o = this.data('pagination');
+			o.items = newItems;
+			o.pages = Math.ceil(o.items / o.itemsOnPage) ? Math.ceil(o.items / o.itemsOnPage) : 1;
+			this.data('pagination', o);
+			methods._draw.call(this);
 		},
 
 		_draw: function() {
