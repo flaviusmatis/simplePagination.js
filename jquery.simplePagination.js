@@ -106,6 +106,14 @@
 			return this;
 		},
 
+		updateItems: function (newItems, event) {
+			var o = this.data('pagination');
+			o.items = newItems;
+			o.pages = Math.ceil(o.items / o.itemsOnPage) ? Math.ceil(o.items / o.itemsOnPage) : 1;
+			this.data('pagination', o);
+			methods._draw.call(this);
+		},
+
 		_draw: function() {
 			var	o = this.data('pagination'),
 				interval = methods._getInterval(o),
