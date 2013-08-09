@@ -114,6 +114,14 @@
 			methods._draw.call(this);
 		},
 
+		updateItemsOnPage: function (itemsOnPage) {
+			var o = this.data('pagination');
+			o.itemsOnPage = itemsOnPage;
+			this.data('pagination', o);
+			methods._selectPage.call(this, 0);
+			return this;
+		},
+
 		_draw: function() {
 			var	o = this.data('pagination'),
 				interval = methods._getInterval(o),
@@ -219,7 +227,7 @@
 		}
 
 	};
-	
+
 	$.fn.pagination = function(method) {
 
 		// Method calling logic
