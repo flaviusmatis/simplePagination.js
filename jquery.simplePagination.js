@@ -85,6 +85,14 @@
 			return this;
 		},
 
+		drawPage: function (page) {
+			var o = this.data('pagination');
+			o.currentPage = page - 1;
+			this.data('pagination', o);
+			methods._draw.call(this);
+			return this;
+		},
+
 		redraw: function(){
 			methods._draw.call(this);
 			return this;
@@ -112,6 +120,14 @@
 			o.pages = Math.ceil(o.items / o.itemsOnPage) ? Math.ceil(o.items / o.itemsOnPage) : 1;
 			this.data('pagination', o);
 			methods._draw.call(this);
+		},
+
+		updateItemsOnPage: function (itemsOnPage) {
+			var o = this.data('pagination');
+			o.itemsOnPage = itemsOnPage;
+			this.data('pagination', o);
+			methods._selectPage.call(this, 0);
+			return this;
 		},
 
 		_draw: function() {
@@ -219,7 +235,7 @@
 		}
 
 	};
-	
+
 	$.fn.pagination = function(method) {
 
 		// Method calling logic

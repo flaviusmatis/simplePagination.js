@@ -282,6 +282,26 @@
 
 	</div>
 
+	<p><strong>updateItemsOnPage</strong> - allows to dynamically change how many items are rendered on each page</p>
+
+	<div class="block">
+
+<pre name="code" class="js">$(function() {
+    $(selector).pagination('updateItemsOnPage', 20);
+});</pre>
+
+	</div>
+
+	<p><strong>drawPage</strong> - takes a page number as a parameter and it sets the "currentPage" value to the given page number and draws the pagination</p>
+
+	<div class="block">
+
+<pre name="code" class="js">$(function() {
+    $(selector).pagination('drawPage', 5);
+});</pre>
+
+	</div>
+
 	<h2>Support & Feedback</h2>
 
 	<p>For issues or suggestions please see <a href="https://github.com/flaviusmatis/simplePagination.js">simplePagination.js on Github</a>, or tweet <a href="http://twitter.com/#!/flaviusmatis">@flaviusmatis</a>.</p>
