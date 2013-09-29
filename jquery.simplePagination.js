@@ -25,7 +25,7 @@
 				nextText: 'Next',
 				ellipseText: '&hellip;',
 				cssStyle: 'light-theme',
-                labelMap:null,
+				labelMap: [],
 				selectOnClick: true,
 				onPageClick: function(pageNumber, event) {
 					// Callback triggered when a page is clicked
@@ -194,16 +194,16 @@
 
 			pageIndex = pageIndex < 0 ? 0 : (pageIndex < o.pages ? pageIndex : o.pages - 1);
 
-            options = {
-                text: pageIndex + 1,
-                classes: ''
-            };
+			options = {
+				text: pageIndex + 1,
+				classes: ''
+			};
 
-            if(o.labelMap != null && typeof o.labelMap[pageIndex] != 'undefined') {
-                options.text = o.labelMap[pageIndex];
-            }
+			if (o.labelMap.length && o.labelMap[pageIndex]) {
+				options.text = o.labelMap[pageIndex];
+			}
 
-            options = $.extend(options, opts || {});
+			options = $.extend(options, opts || {});
 
 			if (pageIndex == o.currentPage || o.disabled) {
 				if (o.disabled) {
