@@ -118,7 +118,7 @@
 		updateItems: function (newItems) {
 			var o = this.data('pagination');
 			o.items = newItems;
-			o.pages = Math.ceil(o.items / o.itemsOnPage) ? Math.ceil(o.items / o.itemsOnPage) : 1;
+			o.pages = methods._getPages(o);
 			this.data('pagination', o);
 			methods._draw.call(this);
 		},
@@ -126,6 +126,7 @@
 		updateItemsOnPage: function (itemsOnPage) {
 			var o = this.data('pagination');
 			o.itemsOnPage = itemsOnPage;
+			o.pages = methods._getPages(o);
 			this.data('pagination', o);
 			methods._selectPage.call(this, 0);
 			return this;
@@ -180,6 +181,11 @@
 			if (o.nextText) {
 				methods._appendItem.call(this, o.currentPage + 1, {text: o.nextText, classes: 'next'});
 			}
+		},
+
+		_getPages: function(o) {
+			var pages = Math.ceil(o.items / o.itemsOnPage);
+			return pages || 1;
 		},
 
 		_getInterval: function(o) {
