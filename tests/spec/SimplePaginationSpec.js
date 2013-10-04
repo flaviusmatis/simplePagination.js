@@ -55,4 +55,24 @@ describe('SimplePagination', function() {
         })
     })
 
+    describe('#prevPage', function() {
+        it('pages to the previous page', function() {
+            var page = pageCount - 1;
+            var expected = page - 1;
+            pager.pagination('selectPage', page);
+
+            pager.pagination('prevPage');
+
+            expect(pager).toBeOnPage(expected);
+        })
+
+        it('does not go to page 0', function() {
+            var expected = pager.pagination('getCurrentPage');
+
+            pager.pagination('prevPage');
+
+            expect(pager).toBeOnPage(expected);
+        })
+    })
+
 });
