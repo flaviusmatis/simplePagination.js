@@ -12,6 +12,14 @@ describe('SimplePagination', function() {
         })
     })
 
+    describe('#disable', function() {
+        it('disables the pager', function() {
+            pager.pagination('disable');
+
+            expect(pager).toBeDisabled();
+        })
+    })
+
     describe('#getPagesCount', function() {
         it('return the number of pages', function() {
             expect(pager.pagination('getPagesCount')).toBe(pageCount);
