@@ -12,6 +12,12 @@ describe('SimplePagination', function() {
         })
     })
 
+    describe('#getPagesCount', function() {
+        it('return the number of pages', function() {
+            expect(pager.pagination('getPagesCount')).toBe(pageCount);
+        })
+    })
+
     describe('#selectPage', function() {
         it('changes to the specified page', function() {
             var page = pageCount - 1;
