@@ -1,6 +1,7 @@
 var pager;
 var items = 100;
 var itemsOnPage = 10;
+var pageCount = items/itemsOnPage;
 
 beforeEach(function() {
 

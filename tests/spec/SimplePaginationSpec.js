@@ -14,7 +14,7 @@ describe('SimplePagination', function() {
 
     describe('#selectPage', function() {
         it('changes to the specified page', function() {
-            var page = (items/itemsOnPage) - 1;
+            var page = pageCount - 1;
             pager.pagination('selectPage', page);
 
             expect(pager).toBeOnPage(page);
@@ -25,7 +25,7 @@ describe('SimplePagination', function() {
         it('returns the current page number', function() {
             expect(pager.pagination('getCurrentPage')).toBe(1);
 
-            var page = (items/itemsOnPage) - 1;
+            var page = pageCount - 1;
             pager.pagination('selectPage', page);
 
             expect(pager.pagination('getCurrentPage')).toBe(page);
