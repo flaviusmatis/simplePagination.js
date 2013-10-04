@@ -21,4 +21,15 @@ describe('SimplePagination', function() {
         })
     })
 
+    describe('#getCurrentPage', function() {
+        it('returns the current page number', function() {
+            expect(pager.pagination('getCurrentPage')).toBe(1);
+
+            var page = (items/itemsOnPage) - 1;
+            pager.pagination('selectPage', page);
+
+            expect(pager.pagination('getCurrentPage')).toBe(page);
+        })
+    })
+
 });

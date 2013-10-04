@@ -16,8 +16,9 @@ beforeEach(function() {
             return ( this.actual.hasClass('simple-pagination') &&
                      this.actual.find('li').length > 0 );
         },
-        toBeOnPage: function(page) {
-            return this.actual.find('li.active span').html() == page.toString();
+        toBeOnPage: function(expected_page) {
+            actual_page = this.actual.find('li.active span').not('.prev').not('.next').html();
+            return actual_page == expected_page;
         }
     });
 
