@@ -75,4 +75,23 @@ describe('SimplePagination', function() {
         })
     })
 
+    describe('#nextPage', function() {
+        it('does not page past the last', function() {
+            var expected = pageCount;
+
+            pager.pagination('selectPage', pageCount);
+            pager.pagination('nextPage');
+
+            expect(pager).toBeOnPage(pageCount);
+        })
+
+        it('pages to the previous page', function() {
+            var expected = pager.pagination('getCurrentPage') + 1;
+
+            pager.pagination('nextPage');
+
+            expect(pager).toBeOnPage(expected);
+        })
+    })
+
 });
