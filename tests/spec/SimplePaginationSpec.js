@@ -57,40 +57,39 @@ describe('SimplePagination', function() {
 
     describe('#prevPage', function() {
         it('pages to the previous page', function() {
-            var page = pageCount - 1;
-            var expected = page - 1;
-            pager.pagination('selectPage', page);
+            var expectedPage = pageCount - 1;
+            pager.pagination('selectPage', pageCount);
 
             pager.pagination('prevPage');
 
-            expect(pager).toBeOnPage(expected);
+            expect(pager).toBeOnPage(expectedPage);
         })
 
         it('does not go to page 0', function() {
-            var expected = pager.pagination('getCurrentPage');
+            var expectedPage = pager.pagination('getCurrentPage');
 
             pager.pagination('prevPage');
 
-            expect(pager).toBeOnPage(expected);
+            expect(pager).toBeOnPage(expectedPage);
         })
     })
 
     describe('#nextPage', function() {
         it('does not page past the last', function() {
-            var expected = pageCount;
+            var expectedPage = pageCount;
 
             pager.pagination('selectPage', pageCount);
             pager.pagination('nextPage');
 
-            expect(pager).toBeOnPage(pageCount);
+            expect(pager).toBeOnPage(expectedPage);
         })
 
         it('pages to the previous page', function() {
-            var expected = pager.pagination('getCurrentPage') + 1;
+            var expectedPage = pager.pagination('getCurrentPage') + 1;
 
             pager.pagination('nextPage');
 
-            expect(pager).toBeOnPage(expected);
+            expect(pager).toBeOnPage(expectedPage);
         })
     })
 
