@@ -12,6 +12,15 @@ describe('SimplePagination', function() {
         })
     })
 
+    describe('#redraw', function() {
+        it('recreates a destroyed pager', function() {
+            pager.pagination('destroy');
+            pager.pagination('redraw');
+
+            expect(pager).toBePaged();
+        })
+    })
+
     describe('#disable', function() {
         it('disables the pager', function() {
             pager.pagination('disable');
