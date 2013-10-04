@@ -37,10 +37,10 @@ describe('SimplePagination', function() {
 
     describe('#selectPage', function() {
         it('changes to the specified page', function() {
-            var page = pageCount - 1;
-            pager.pagination('selectPage', page);
+            var expectedPage = pageCount;
+            pager.pagination('selectPage', expectedPage);
 
-            expect(pager).toBeOnPage(page);
+            expect(pager).toBeOnPage(expectedPage);
         })
     })
 
@@ -48,17 +48,18 @@ describe('SimplePagination', function() {
         it('returns the current page number', function() {
             expect(pager.pagination('getCurrentPage')).toBe(1);
 
-            var page = pageCount - 1;
-            pager.pagination('selectPage', page);
+            var expectedPage = pageCount;
+            pager.pagination('selectPage', expectedPage);
 
-            expect(pager.pagination('getCurrentPage')).toBe(page);
+            expect(pager.pagination('getCurrentPage')).toBe(expectedPage);
         })
     })
 
     describe('#prevPage', function() {
         it('pages to the previous page', function() {
-            var expectedPage = pageCount - 1;
             pager.pagination('selectPage', pageCount);
+
+            var expectedPage = pager.pagination('getCurrentPage') - 1;
 
             pager.pagination('prevPage');
 
