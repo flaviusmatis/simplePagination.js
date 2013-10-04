@@ -20,6 +20,15 @@ describe('SimplePagination', function() {
         })
     })
 
+    describe('#enable', function() {
+        it('enables a disabled pager', function() {
+            pager.pagination('disable');
+            pager.pagination('enable');
+
+            expect(pager).not.toBeDisabled();
+        })
+    })
+
     describe('#getPagesCount', function() {
         it('return the number of pages', function() {
             expect(pager.pagination('getPagesCount')).toBe(pageCount);
