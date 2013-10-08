@@ -103,4 +103,15 @@ describe('SimplePagination', function() {
         })
     })
 
+    describe('#updateItems', function() {
+        it('updates the number of pages', function() {
+            var updatedItems = Math.round(items / 2);
+            var expectedPageCount = (updatedItems/itemsOnPage);
+
+            pager.pagination('updateItems', updatedItems);
+
+            expect(pager.pagination('getPagesCount')).toBe(expectedPageCount);
+        })
+    })
+
 });
