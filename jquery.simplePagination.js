@@ -135,11 +135,14 @@
 		_draw: function() {
 			var	o = this.data('pagination'),
 				interval = methods._getInterval(o),
-				i;
+				i,
+                tagName;
 
 			methods.destroy.call(this);
 
-			var $panel = this.prop("tagName") === "UL" ? this : $('<ul></ul>').appendTo(this);
+            tagName = (typeof this.prop === 'function') ? this.prop('tagName') : this.attr('tagName');
+
+			var $panel = tagName === 'UL' ? this : $('<ul></ul>').appendTo(this);
 
 			// Generate Prev link
 			if (o.prevText) {
