@@ -25,6 +25,7 @@
 				nextText: 'Next',
 				ellipseText: '&hellip;',
 				cssStyle: 'light-theme',
+				labelMap: [],
 				selectOnClick: true,
 				onPageClick: function(pageNumber, event) {
 					// Callback triggered when a page is clicked
@@ -117,7 +118,7 @@
 		updateItems: function (newItems) {
 			var o = this.data('pagination');
 			o.items = newItems;
-			o.pages = Math.ceil(o.items / o.itemsOnPage) ? Math.ceil(o.items / o.itemsOnPage) : 1;
+			o.pages = methods._getPages(o);
 			this.data('pagination', o);
 			methods._draw.call(this);
 		},
@@ -125,6 +126,7 @@
 		updateItemsOnPage: function (itemsOnPage) {
 			var o = this.data('pagination');
 			o.itemsOnPage = itemsOnPage;
+			o.pages = methods._getPages(o);
 			this.data('pagination', o);
 			methods._selectPage.call(this, 0);
 			return this;
@@ -133,11 +135,14 @@
 		_draw: function() {
 			var	o = this.data('pagination'),
 				interval = methods._getInterval(o),
-				i;
+				i,
+				tagName;
 
 			methods.destroy.call(this);
+			
+			tagName = (typeof this.prop === 'function') ? this.prop('tagName') : this.attr('tagName');
 
-			var $panel = this.prop("tagName") === "UL" ? this : $('<ul></ul>').appendTo(this);
+			var $panel = tagName === 'UL' ? this : $('<ul></ul>').appendTo(this);
 
 			// Generate Prev link
 			if (o.prevText) {
@@ -181,6 +186,11 @@
 			}
 		},
 
+		_getPages: function(o) {
+			var pages = Math.ceil(o.items / o.itemsOnPage);
+			return pages || 1;
+		},
+
 		_getInterval: function(o) {
 			return {
 				start: Math.ceil(o.currentPage > o.halfDisplayed ? Math.max(Math.min(o.currentPage - o.halfDisplayed, (o.pages - o.displayedPages)), 0) : 0),
@@ -193,10 +203,16 @@
 
 			pageIndex = pageIndex < 0 ? 0 : (pageIndex < o.pages ? pageIndex : o.pages - 1);
 
-			options = $.extend({
+			options = {
 				text: pageIndex + 1,
 				classes: ''
-			}, opts || {});
+			};
+
+			if (o.labelMap.length && o.labelMap[pageIndex]) {
+				options.text = o.labelMap[pageIndex];
+			}
+
+			options = $.extend(options, opts || {});
 
 			if (pageIndex == o.currentPage || o.disabled) {
 				if (o.disabled) {
