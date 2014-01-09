@@ -27,6 +27,7 @@
 				cssStyle: 'light-theme',
 				labelMap: [],
 				selectOnClick: true,
+                nextAtFront: false,
 				onPageClick: function(pageNumber, event) {
 					// Callback triggered when a page is clicked
 					// Page number is given as an optional parameter
@@ -149,6 +150,11 @@
 				methods._appendItem.call(this, o.currentPage - 1, {text: o.prevText, classes: 'prev'});
 			}
 
+            // Generate Next link (if set for front)
+            if (o.nextText && o.nextAtFront) {
+                methods._appendItem.call(this, o.currentPage + 1, {text: o.nextText, classes: 'next'});
+            }
+
 			// Generate start edges
 			if (interval.start > 0 && o.edges > 0) {
 				var end = Math.min(o.edges, interval.start);
@@ -180,8 +186,8 @@
 				}
 			}
 
-			// Generate Next link
-			if (o.nextText) {
+			// Generate Next link (unless it's already at the front)
+			if (o.nextText && !o.nextAtFront) {
 				methods._appendItem.call(this, o.currentPage + 1, {text: o.nextText, classes: 'next'});
 			}
 		},
