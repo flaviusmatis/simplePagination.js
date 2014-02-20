@@ -94,7 +94,7 @@ describe('SimplePagination', function() {
             expect(pager).toBeOnPage(expectedPage);
         })
 
-        it('pages to the previous page', function() {
+        it('pages to the next page', function() {
             var expectedPage = pager.pagination('getCurrentPage') + 1;
 
             pager.pagination('nextPage');
