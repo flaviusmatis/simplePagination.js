@@ -94,7 +94,7 @@ describe('SimplePagination', function() {
             expect(pager).toBeOnPage(expectedPage);
         })
 
-        it('pages to the previous page', function() {
+        it('pages to the next page', function() {
             var expectedPage = pager.pagination('getCurrentPage') + 1;
 
             pager.pagination('nextPage');
@@ -122,6 +122,48 @@ describe('SimplePagination', function() {
             pager.pagination('updateItemsOnPage', updatedItemsOnPage);
 
             expect(pager.pagination('getPagesCount')).toBe(expectedPageCount);
+        })
+    })
+
+    describe('invertPageOrder Option', function() {
+        var invertedPager;
+
+        beforeEach(function() {
+            $('<div id="inverted_pager" class="pager"></div>').appendTo('body').pagination({
+                items: items,
+                itemsOnPage: itemsOnPage,
+                invertPageOrder: true
+            });
+
+            invertedPager = $('#inverted_pager');
+        })
+
+        it('moves the highest page number to the front of the list', function() {
+            var expectedPage = pageCount;
+
+            expect(invertedPager).toBeOnPage(expectedPage);
+        })
+
+        describe('#nextPage', function() {
+            it('pages to the next page', function() {
+                var expectedPage = pager.pagination('getCurrentPage') - 1;
+
+                pager.pagination('nextPage');
+
+                expect(pager).toBeOnPage(expectedPage);
+            })
+        })
+
+        describe('#prevPage', function() {
+            it('pages to the previous page', function() {
+                pager.pagination('selectPage', 1);
+
+                var expectedPage = pager.pagination('getCurrentPage') + 1;
+
+                pager.pagination('prevPage');
+
+                expect(pager).toBeOnPage(expectedPage);
+            })
         })
     })
 

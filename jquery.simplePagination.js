@@ -28,6 +28,7 @@
 				labelMap: [],
 				selectOnClick: true,
 				nextAtFront: false,
+				invertPageOrder: false,
 				onPageClick: function(pageNumber, event) {
 					// Callback triggered when a page is clicked
 					// Page number is given as an optional parameter
