@@ -146,23 +146,25 @@ describe('SimplePagination', function() {
 
         describe('#nextPage', function() {
             it('pages to the next page', function() {
-                var expectedPage = pager.pagination('getCurrentPage') - 1;
+                invertedPager.pagination('selectPage', pageCount );
 
-                pager.pagination('nextPage');
+                var expectedPage = invertedPager.pagination('getCurrentPage') - 1;
 
-                expect(pager).toBeOnPage(expectedPage);
+                invertedPager.pagination('nextPage');
+
+                expect(invertedPager).toBeOnPage(expectedPage);
             })
         })
 
         describe('#prevPage', function() {
             it('pages to the previous page', function() {
-                pager.pagination('selectPage', 1);
+                invertedPager.pagination('selectPage', 1);
 
-                var expectedPage = pager.pagination('getCurrentPage') + 1;
+                var expectedPage = invertedPager.pagination('getCurrentPage') + 1;
 
-                pager.pagination('prevPage');
+                invertedPager.pagination('prevPage');
 
-                expect(pager).toBeOnPage(expectedPage);
+                expect(invertedPager).toBeOnPage(expectedPage);
             })
         })
     })

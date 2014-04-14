@@ -18,7 +18,7 @@
 				pages: 0,
 				displayedPages: 5,
 				edges: 2,
-				currentPage: 1,
+				currentPage: 0,
 				hrefTextPrefix: '#page-',
 				hrefTextSuffix: '',
 				prevText: 'Prev',
@@ -41,7 +41,10 @@
 			var self = this;
 
 			o.pages = o.pages ? o.pages : Math.ceil(o.items / o.itemsOnPage) ? Math.ceil(o.items / o.itemsOnPage) : 1;
-			o.currentPage = o.currentPage - 1;
+			if (o.currentPage)
+				o.currentPage = o.currentPage - 1;
+			else
+				o.currentPage = !o.invertPageOrder ? 0 : o.pages - 1;
 			o.halfDisplayed = o.displayedPages / 2;
 
 			this.each(function() {
@@ -61,16 +64,28 @@
 
 		prevPage: function() {
 			var o = this.data('pagination');
-			if (o.currentPage > 0) {
-				methods._selectPage.call(this, o.currentPage - 1);
+			if (!o.invertPageOrder) {
+				if (o.currentPage > 0) {
+					methods._selectPage.call(this, o.currentPage - 1);
+				}
+			} else {
+				if (o.currentPage < o.pages - 1) {
+					methods._selectPage.call(this, o.currentPage + 1);
+				}
 			}
 			return this;
 		},
 
 		nextPage: function() {
 			var o = this.data('pagination');
-			if (o.currentPage < o.pages - 1) {
-				methods._selectPage.call(this, o.currentPage + 1);
+			if (!o.invertPageOrder) {
+				if (o.currentPage < o.pages - 1) {
+					methods._selectPage.call(this, o.currentPage + 1);
+				}
+			} else {
+				if (o.currentPage > 0) {
+					methods._selectPage.call(this, o.currentPage - 1);
+				}
 			}
 			return this;
 		},
@@ -148,48 +163,82 @@
 
 			// Generate Prev link
 			if (o.prevText) {
-				methods._appendItem.call(this, o.currentPage - 1, {text: o.prevText, classes: 'prev'});
+				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage - 1 : o.currentPage + 1, {text: o.prevText, classes: 'prev'});
 			}
 
 			// Generate Next link (if option set for at front)
 			if (o.nextText && o.nextAtFront) {
-				methods._appendItem.call(this, o.currentPage + 1, {text: o.nextText, classes: 'next'});
+				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage + 1 : o.currentPage - 1, {text: o.nextText, classes: 'next'});
 			}
 
 			// Generate start edges
-			if (interval.start > 0 && o.edges > 0) {
-				var end = Math.min(o.edges, interval.start);
-				for (i = 0; i < end; i++) {
-					methods._appendItem.call(this, i);
+			if (!o.invertPageOrder) {
+				if (interval.start > 0 && o.edges > 0) {
+					var end = Math.min(o.edges, interval.start);
+					for (i = 0; i < end; i++) {
+						methods._appendItem.call(this, i);
+					}
+					if (o.edges < interval.start && (interval.start - o.edges != 1)) {
+						$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
+					} else if (interval.start - o.edges == 1) {
+						methods._appendItem.call(this, o.edges);
+					}
 				}
-				if (o.edges < interval.start && (interval.start - o.edges != 1)) {
-					$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
-				} else if (interval.start - o.edges == 1) {
-					methods._appendItem.call(this, o.edges);
+			} else {
+				if (interval.end < o.pages && o.edges > 0) {
+					var begin = Math.max(o.pages - o.edges, interval.end);
+					for (i = o.pages - 1; i >= begin; i--) {
+						methods._appendItem.call(this, i);
+					}
+					if (o.pages - o.edges > interval.end && (o.pages - o.edges - interval.end != 1)) {
+						$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
+					} else if (o.pages - o.edges - interval.end == 1) {
+						methods._appendItem.call(this, interval.end);
+					}
 				}
 			}
 
 			// Generate interval links
-			for (i = interval.start; i < interval.end; i++) {
-				methods._appendItem.call(this, i);
+			if (!o.invertPageOrder) {
+				for (i = interval.start; i < interval.end; i++) {
+					methods._appendItem.call(this, i);
+				}
+			} else {
+				for (i = interval.end - 1; i >= interval.start; i--) {
+					methods._appendItem.call(this, i);
+				}
 			}
 
 			// Generate end edges
-			if (interval.end < o.pages && o.edges > 0) {
-				if (o.pages - o.edges > interval.end && (o.pages - o.edges - interval.end != 1)) {
-					$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
-				} else if (o.pages - o.edges - interval.end == 1) {
-					methods._appendItem.call(this, interval.end++);
+			if (!o.invertPageOrder) {
+				if (interval.end < o.pages && o.edges > 0) {
+					if (o.pages - o.edges > interval.end && (o.pages - o.edges - interval.end != 1)) {
+						$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
+					} else if (o.pages - o.edges - interval.end == 1) {
+						methods._appendItem.call(this, interval.end);
+					}
+					var begin = Math.max(o.pages - o.edges, interval.end);
+					for (i = begin; i < o.pages; i++) {
+						methods._appendItem.call(this, i);
+					}
 				}
-				var begin = Math.max(o.pages - o.edges, interval.end);
-				for (i = begin; i < o.pages; i++) {
-					methods._appendItem.call(this, i);
+			} else {
+				if (interval.start > 0 && o.edges > 0) {
+					if (o.edges < interval.start && (interval.start - o.edges != 1)) {
+						$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
+					} else if (interval.start - o.edges == 1) {
+						methods._appendItem.call(this, o.edges);
+					}
+					var end = Math.min(o.edges, interval.start);
+					for (i = end - 1; i >= 0; i--) {
+						methods._appendItem.call(this, i);
+					}
 				}
 			}
 
 			// Generate Next link (unless option is set for at front)
 			if (o.nextText && !o.nextAtFront) {
-				methods._appendItem.call(this, o.currentPage + 1, {text: o.nextText, classes: 'next'});
+				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage + 1 : o.currentPage - 1, {text: o.nextText, classes: 'next'});
 			}
 		},
 
