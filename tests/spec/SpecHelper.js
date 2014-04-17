@@ -5,7 +5,7 @@ var pageCount = items/itemsOnPage;
 
 beforeEach(function() {
 
-    $('<div id="pager"></div>').appendTo('body').pagination({
+    $('<div id="pager" class="pager"></div>').appendTo('body').pagination({
         items: items,
         itemsOnPage: itemsOnPage
     });
@@ -29,5 +29,5 @@ beforeEach(function() {
 });
 
 afterEach(function () {
-    pager.remove();
+    $('.pager').remove();
 });
