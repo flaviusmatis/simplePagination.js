@@ -29,6 +29,8 @@
 				selectOnClick: true,
 				nextAtFront: false,
 				invertPageOrder: false,
+				useStartEdge : true,
+				useEndEdge : true,
 				onPageClick: function(pageNumber, event) {
 					// Callback triggered when a page is clicked
 					// Page number is given as an optional parameter
@@ -174,9 +176,11 @@
 			// Generate start edges
 			if (!o.invertPageOrder) {
 				if (interval.start > 0 && o.edges > 0) {
-					var end = Math.min(o.edges, interval.start);
-					for (i = 0; i < end; i++) {
-						methods._appendItem.call(this, i);
+					if(o.useStartEdge) {
+						var end = Math.min(o.edges, interval.start);
+						for (i = 0; i < end; i++) {
+							methods._appendItem.call(this, i);
+						}
 					}
 					if (o.edges < interval.start && (interval.start - o.edges != 1)) {
 						$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
@@ -186,10 +190,13 @@
 				}
 			} else {
 				if (interval.end < o.pages && o.edges > 0) {
-					var begin = Math.max(o.pages - o.edges, interval.end);
-					for (i = o.pages - 1; i >= begin; i--) {
-						methods._appendItem.call(this, i);
+					if(o.useStartEdge) {
+						var begin = Math.max(o.pages - o.edges, interval.end);
+						for (i = o.pages - 1; i >= begin; i--) {
+							methods._appendItem.call(this, i);
+						}
 					}
+
 					if (o.pages - o.edges > interval.end && (o.pages - o.edges - interval.end != 1)) {
 						$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
 					} else if (o.pages - o.edges - interval.end == 1) {
@@ -217,9 +224,11 @@
 					} else if (o.pages - o.edges - interval.end == 1) {
 						methods._appendItem.call(this, interval.end);
 					}
-					var begin = Math.max(o.pages - o.edges, interval.end);
-					for (i = begin; i < o.pages; i++) {
-						methods._appendItem.call(this, i);
+					if(o.useEndEdge) {
+						var begin = Math.max(o.pages - o.edges, interval.end);
+						for (i = begin; i < o.pages; i++) {
+							methods._appendItem.call(this, i);
+						}
 					}
 				}
 			} else {
@@ -229,9 +238,12 @@
 					} else if (interval.start - o.edges == 1) {
 						methods._appendItem.call(this, o.edges);
 					}
-					var end = Math.min(o.edges, interval.start);
-					for (i = end - 1; i >= 0; i--) {
-						methods._appendItem.call(this, i);
+
+					if(o.useEndEdge) {
+						var end = Math.min(o.edges, interval.start);
+						for (i = end - 1; i >= 0; i--) {
+							methods._appendItem.call(this, i);
+						}
 					}
 				}
 			}
