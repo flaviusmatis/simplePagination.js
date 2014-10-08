@@ -23,6 +23,10 @@ beforeEach(function() {
         },
         toBeDisabled: function() {
             return this.actual.find('li').length == this.actual.find('li.disabled').length;
+        },
+        toBeSameTextValues:function(expected_pages){
+            var pages = this.actual.find('li >').map(function(){ return $(this).text()}).get();
+            return expected_pages.join(',') === pages.join(',');
         }
     });
 

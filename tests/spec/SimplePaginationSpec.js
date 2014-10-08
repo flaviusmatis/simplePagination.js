@@ -169,4 +169,103 @@ describe('SimplePagination', function() {
         })
     })
 
+
+	describe('use Edge Options', function() {
+		var edgePager;
+
+		it('use startEdge or endEdge by option useStartEdge, useEndEdge', function() {
+		})
+
+		describe('#default useStartEdge & useEndEdge', function() {
+			beforeEach(function() {
+				$('<div id="edge_pager" class="pager"></div>').appendTo('body').pagination({
+					items: items,
+					itemsOnPage: itemsOnPage
+				})
+
+				edgePager = $('#edge_pager');
+			})
+
+			it('pages should same text when select 1 page', function() {
+				edgePager.pagination('selectPage', 1);
+				expect(edgePager).toBeSameTextValues(['Prev', '1', '2', '3', '4', '5', '\u2026', '9', '10', 'Next']);
+			})
+
+
+			it('pages should same text when select last page', function() {
+				edgePager.pagination('selectPage', pageCount);
+				expect(edgePager).toBeSameTextValues(['Prev', '1', '2', '\u2026', '6', '7', '8', '9', '10', 'Next']);
+			})
+		})
+
+		describe('#not useStartEdge & not useEndEdge', function() {
+			beforeEach(function() {
+				$('<div id="edge_pager" class="pager"></div>').appendTo('body').pagination({
+					items: items,
+					itemsOnPage: itemsOnPage,
+					useStartEdge:false,
+					useEndEdge:false
+				})
+
+				edgePager = $('#edge_pager');
+			})
+
+			it('pages should same text when select 1 page', function() {
+				edgePager.pagination('selectPage', 1);
+				expect(edgePager).toBeSameTextValues(['Prev', '1', '2', '3', '4', '5', '\u2026', 'Next']);
+			})
+
+			it('pages should same text when select last page', function() {
+				edgePager.pagination('selectPage', pageCount);
+				expect(edgePager).toBeSameTextValues(['Prev', '\u2026', '6', '7', '8', '9', '10', 'Next']);
+			})
+		})
+
+		describe('#invertPageOrder with default useStartEdge & useEndEdge', function() {
+			beforeEach(function() {
+				$('<div id="edge_pager" class="pager"></div>').appendTo('body').pagination({
+					items: items,
+					itemsOnPage: itemsOnPage,
+					invertPageOrder:true
+				})
+
+				edgePager = $('#edge_pager');
+			})
+
+			it('pages should same text when select 1 page', function() {
+				edgePager.pagination('selectPage', 1);
+				expect(edgePager).toBeSameTextValues(['Prev', '10', '9', '\u2026', '5', '4', '3', '2', '1', 'Next']);
+			})
+
+
+			it('pages should same text when select last page', function() {
+				edgePager.pagination('selectPage', pageCount);
+				expect(edgePager).toBeSameTextValues(['Prev', '10', '9', '8', '7', '6', '\u2026', '2', '1', 'Next']);
+			})
+		})
+
+		describe('#invertPageOrder with not useStartEdge & not useEndEdge', function() {
+			beforeEach(function() {
+				$('<div id="edge_pager" class="pager"></div>').appendTo('body').pagination({
+					items: items,
+					itemsOnPage: itemsOnPage,
+					useStartEdge:false,
+					useEndEdge:false,
+					invertPageOrder:true
+				})
+
+				edgePager = $('#edge_pager');
+			})
+
+			it('pages should same text when select 1 page', function() {
+				edgePager.pagination('selectPage', 1);
+				expect(edgePager).toBeSameTextValues(['Prev', '\u2026', '5', '4', '3', '2', '1', 'Next']);
+			})
+
+			it('pages should same text when select last page', function() {
+				edgePager.pagination('selectPage', pageCount);
+				expect(edgePager).toBeSameTextValues(['Prev', '10', '9', '8', '7', '6', '\u2026', 'Next']);
+			})
+		})
+	})
 });
