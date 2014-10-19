@@ -96,6 +96,10 @@
 			return this.data('pagination').pages;
 		},
 
+		setPagesCount: function(count) {
+			this.data('pagination').pages = count;
+		},
+
 		getCurrentPage: function () {
 			return this.data('pagination').currentPage + 1;
 		},
