@@ -25,6 +25,7 @@
 				nextText: 'Next',
 				ellipseText: '&hellip;',
 				cssStyle: 'light-theme',
+                formatter: undefined,
 				labelMap: [],
 				selectOnClick: true,
 				nextAtFront: false,
@@ -288,9 +289,10 @@
 				} else {
 					$linkWrapper.addClass('active');
 				}
-				$link = $('<span class="current">' + (options.text) + '</span>');
+				$link = o.formatter ? o.formatter(o, pageIndex, options) : $('<span class="current">' + (options.text) + '</span>');
 			} else {
-				$link = $('<a href="' + o.hrefTextPrefix + (pageIndex + 1) + o.hrefTextSuffix + '" class="page-link">' + (options.text) + '</a>');
+			    $link = o.formatter ? o.formatter(o, pageIndex, options) : $('<a href="' + o.hrefTextPrefix + (pageIndex + 1) + o.hrefTextSuffix + '" class="page-link">' + (options.text) + '</a>');
+
 				$link.click(function(event){
 					return methods._selectPage.call(self, pageIndex, event);
 				});
