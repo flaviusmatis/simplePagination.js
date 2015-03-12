@@ -1,0 +1,22 @@
+{
+  "name": "simplePagination.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/flaviusmatis/simplePagination.js",
+  "authors": [
+    "Flavius Matis <flavius@fdbk.me>"
+  ],
+  "description": "A simple jQuery pagination plugin with 3 CSS themes.",
+  "main": "jquery.simplePagination.js",
+  "keywords": [
+    "jquery",
+    "pagination"
+  ],
+  "license": "BSD",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
