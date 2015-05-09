@@ -25,6 +25,7 @@
 				nextText: 'Next',
 				ellipseText: '&hellip;',
 				cssStyle: 'light-theme',
+				listStyle: 'pagination',
 				labelMap: [],
 				selectOnClick: true,
 				nextAtFront: false,
@@ -165,7 +166,7 @@
 			
 			tagName = (typeof this.prop === 'function') ? this.prop('tagName') : this.attr('tagName');
 
-			var $panel = tagName === 'UL' ? this : $('<ul></ul>').appendTo(this);
+			var $panel = tagName === 'UL' ? this : $('<ul' + (o.listStyle ? ' class="' + o.listStyle + '"' : '') + '></ul>').appendTo(this);
 
 			// Generate Prev link
 			if (o.prevText) {
