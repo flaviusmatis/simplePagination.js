@@ -25,7 +25,7 @@
 				nextText: 'Next',
 				ellipseText: '&hellip;',
 				cssStyle: 'light-theme',
-				listStyle: 'pagination',
+				listStyle: '',
 				labelMap: [],
 				selectOnClick: true,
 				nextAtFront: false,
