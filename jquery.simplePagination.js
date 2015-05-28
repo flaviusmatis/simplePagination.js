@@ -32,6 +32,9 @@
 				invertPageOrder: false,
 				useStartEdge : true,
 				useEndEdge : true,
+				usePrev: true,
+				useNext: true,
+				hideNextPrev: false,
 				onPageClick: function(pageNumber, event) {
 					// Callback triggered when a page is clicked
 					// Page number is given as an optional parameter
@@ -169,12 +172,12 @@
 			var $panel = tagName === 'UL' ? this : $('<ul' + (o.listStyle ? ' class="' + o.listStyle + '"' : '') + '></ul>').appendTo(this);
 
 			// Generate Prev link
-			if (o.prevText) {
+			if (o.prevText && o.usePrev && (!o.hideNextPrev || o.currentPage != 0)) {
 				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage - 1 : o.currentPage + 1, {text: o.prevText, classes: 'prev'});
 			}
 
 			// Generate Next link (if option set for at front)
-			if (o.nextText && o.nextAtFront) {
+			if (o.nextText && o.nextAtFront && o.useNext && (!o.hideNextPrev || o.currentPage != o.pages - 1)) {
 				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage + 1 : o.currentPage - 1, {text: o.nextText, classes: 'next'});
 			}
 
@@ -254,7 +257,7 @@
 			}
 
 			// Generate Next link (unless option is set for at front)
-			if (o.nextText && !o.nextAtFront) {
+			if (o.nextText && !o.nextAtFront && o.useNext && (!o.hideNextPrev || o.currentPage != o.pages - 1)) {
 				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage + 1 : o.currentPage - 1, {text: o.nextText, classes: 'next'});
 			}
 		},
