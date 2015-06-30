@@ -156,6 +156,10 @@
 			return this;
 		},
 
+		getItemsOnPage: function() {
+			return this.data('pagination').itemsOnPage;
+		},
+
 		_draw: function() {
 			var	o = this.data('pagination'),
 				interval = methods._getInterval(o),
