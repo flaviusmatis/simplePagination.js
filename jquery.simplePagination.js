@@ -156,6 +156,10 @@
 			return this;
 		},
 
+		getItemsOnPage: function() {
+			return this.data('pagination').itemsOnPage;
+		},
+
 		_draw: function() {
 			var	o = this.data('pagination'),
 				interval = methods._getInterval(o),
@@ -288,7 +292,7 @@
 			options = $.extend(options, opts || {});
 
 			if (pageIndex == o.currentPage || o.disabled) {
-				if (o.disabled) {
+				if (o.disabled || options.classes === 'prev' || options.classes === 'next') {
 					$linkWrapper.addClass('disabled');
 				} else {
 					$linkWrapper.addClass('active');
