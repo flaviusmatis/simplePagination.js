@@ -110,14 +110,6 @@
 			return this;
 		},
 
-		drawPage: function (page) {
-			var o = this.data('pagination');
-			o.currentPage = page - 1;
-			this.data('pagination', o);
-			methods._draw.call(this);
-			return this;
-		},
-
 		redraw: function(){
 			methods._draw.call(this);
 			return this;
@@ -320,13 +312,22 @@
 
 		_selectPage: function(pageIndex, event) {
 			var o = this.data('pagination');
-			o.currentPage = pageIndex;
-			if (o.selectOnClick) {
+			methods.setPage.call(this, pageIndex + 1);
+			return o.onPageClick(pageIndex + 1, event);
+		},
+
+		setPage: function(page, forceDraw) {
+			forceDraw = typeof forceDraw !== 'undefined' ? forceDraw : false;
+			var o = this.data('pagination');
+			o.currentPage = page - 1;
+			if (o.selectOnClick || forceDraw) {
 				methods._draw.call(this);
 			}
-			return o.onPageClick(pageIndex + 1, event);
-		}
+		},
 
+		drawPage: function(page) {
+			methods.setPage.call(this, page, true);
+		}
 	};
 
 	$.fn.pagination = function(method) {
