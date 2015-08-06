@@ -21,6 +21,7 @@
 				currentPage: 0,
 				hrefTextPrefix: '#page-',
 				hrefTextSuffix: '',
+				preventHashChange: false,
 				prevText: 'Prev',
 				nextText: 'Next',
 				ellipseText: '&hellip;',
@@ -301,6 +302,10 @@
 			} else {
 				$link = $('<a href="' + o.hrefTextPrefix + (pageIndex + 1) + o.hrefTextSuffix + '" class="page-link">' + (options.text) + '</a>');
 				$link.click(function(event){
+					if (o.preventHashChange == true) {
+						event.preventDefault();
+					}
+
 					return methods._selectPage.call(self, pageIndex, event);
 				});
 			}
