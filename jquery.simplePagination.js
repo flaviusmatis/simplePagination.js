@@ -167,7 +167,7 @@
 				tagName;
 
 			methods.destroy.call(this);
-			
+
 			tagName = (typeof this.prop === 'function') ? this.prop('tagName') : this.attr('tagName');
 
 			var $panel = tagName === 'UL' ? this : $('<ul' + (o.listStyle ? ' class="' + o.listStyle + '"' : '') + '></ul>').appendTo(this);
@@ -180,6 +180,11 @@
 			// Generate Next link (if option set for at front)
 			if (o.nextText && o.nextAtFront) {
 				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage + 1 : o.currentPage - 1, {text: o.nextText, classes: 'next'});
+			}
+
+			// Generate hash
+			if (window.location.hash != "" && o.hrefTextPrefix) {
+				window.location.hash = o.hrefTextPrefix + (o.currentPage + 1) + o.hrefTextSuffix;
 			}
 
 			// Generate start edges
