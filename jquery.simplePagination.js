@@ -43,6 +43,8 @@
 
 			var self = this;
 
+		    o.self = this;
+
 			o.pages = o.pages ? o.pages : Math.ceil(o.items / o.itemsOnPage) ? Math.ceil(o.items / o.itemsOnPage) : 1;
 			if (o.currentPage)
 				o.currentPage = o.currentPage - 1;
@@ -156,10 +158,6 @@
 			return this;
 		},
 
-		getItemsOnPage: function() {
-			return this.data('pagination').itemsOnPage;
-		},
-
 		_draw: function() {
 			var	o = this.data('pagination'),
 				interval = methods._getInterval(o),
@@ -174,18 +172,18 @@
 
 			// Generate Prev link
 			if (o.prevText) {
-				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage - 1 : o.currentPage + 1, {text: o.prevText, classes: 'prev'});
+				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage - 1 : o.currentPage + 1, {text: o.prevText, classes: 'prev', attr: { "rel": "prev" }});
 			}
 
 			// Generate Next link (if option set for at front)
 			if (o.nextText && o.nextAtFront) {
-				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage + 1 : o.currentPage - 1, {text: o.nextText, classes: 'next'});
+				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage + 1 : o.currentPage - 1, {text: o.nextText, classes: 'next', attr: { "rel": "next" }});
 			}
 
-			// Generate hash
-			if (window.location.hash != "" && o.hrefTextPrefix) {
-				window.location.hash = o.hrefTextPrefix + (o.currentPage + 1) + o.hrefTextSuffix;
-			}
+            // Generate hash
+            if (window.location.hash != "" && o.hrefTextPrefix) {
+                window.location.hash = o.hrefTextPrefix + (o.currentPage + 1) + o.hrefTextSuffix;
+            }
 
 			// Generate start edges
 			if (!o.invertPageOrder) {
@@ -264,7 +262,7 @@
 
 			// Generate Next link (unless option is set for at front)
 			if (o.nextText && !o.nextAtFront) {
-				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage + 1 : o.currentPage - 1, {text: o.nextText, classes: 'next'});
+				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage + 1 : o.currentPage - 1, {text: o.nextText, classes: 'next', attr: { "rel": "next" }});
 			}
 		},
 
@@ -297,7 +295,7 @@
 			options = $.extend(options, opts || {});
 
 			if (pageIndex == o.currentPage || o.disabled) {
-				if (o.disabled || options.classes === 'prev' || options.classes === 'next') {
+				if (o.disabled) {
 					$linkWrapper.addClass('disabled');
 				} else {
 					$linkWrapper.addClass('active');
@@ -313,6 +311,14 @@
 			if (options.classes) {
 				$link.addClass(options.classes);
 			}
+
+            if (options.attr) {
+                for (var curAttr in options.attr) {
+                    if (options.attr.hasOwnProperty(curAttr)) {
+                        $link.attr(curAttr, options.attr[curAttr]);
+                    }
+                }
+            }
 
 			$linkWrapper.append($link);
 
