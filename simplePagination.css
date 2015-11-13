@@ -27,6 +27,13 @@ ul.simple-pagination {
 	margin: 0;
 	float: left;
 }
+span.ellipse.clickable {
+	cursor: pointer;
+}
+
+.ellipse input {
+	width: 3em;
+}
 
 /*------------------------------------*\
 	Compact Theme Styles
