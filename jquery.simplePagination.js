@@ -18,15 +18,21 @@
 				pages: 0,
 				displayedPages: 5,
 				edges: 2,
-				currentPage: 1,
+				currentPage: 0,
 				hrefTextPrefix: '#page-',
 				hrefTextSuffix: '',
 				prevText: 'Prev',
 				nextText: 'Next',
 				ellipseText: '&hellip;',
+				ellipsePageSet: true,
 				cssStyle: 'light-theme',
+				listStyle: '',
 				labelMap: [],
 				selectOnClick: true,
+				nextAtFront: false,
+				invertPageOrder: false,
+				useStartEdge : true,
+				useEndEdge : true,
 				onPageClick: function(pageNumber, event) {
 					// Callback triggered when a page is clicked
 					// Page number is given as an optional parameter
@@ -39,7 +45,10 @@
 			var self = this;
 
 			o.pages = o.pages ? o.pages : Math.ceil(o.items / o.itemsOnPage) ? Math.ceil(o.items / o.itemsOnPage) : 1;
-			o.currentPage = o.currentPage - 1;
+			if (o.currentPage)
+				o.currentPage = o.currentPage - 1;
+			else
+				o.currentPage = !o.invertPageOrder ? 0 : o.pages - 1;
 			o.halfDisplayed = o.displayedPages / 2;
 
 			this.each(function() {
@@ -59,22 +68,38 @@
 
 		prevPage: function() {
 			var o = this.data('pagination');
-			if (o.currentPage > 0) {
-				methods._selectPage.call(this, o.currentPage - 1);
+			if (!o.invertPageOrder) {
+				if (o.currentPage > 0) {
+					methods._selectPage.call(this, o.currentPage - 1);
+				}
+			} else {
+				if (o.currentPage < o.pages - 1) {
+					methods._selectPage.call(this, o.currentPage + 1);
+				}
 			}
 			return this;
 		},
 
 		nextPage: function() {
 			var o = this.data('pagination');
-			if (o.currentPage < o.pages - 1) {
-				methods._selectPage.call(this, o.currentPage + 1);
+			if (!o.invertPageOrder) {
+				if (o.currentPage < o.pages - 1) {
+					methods._selectPage.call(this, o.currentPage + 1);
+				}
+			} else {
+				if (o.currentPage > 0) {
+					methods._selectPage.call(this, o.currentPage - 1);
+				}
 			}
 			return this;
 		},
 
 		getPagesCount: function() {
 			return this.data('pagination').pages;
+		},
+
+		setPagesCount: function(count) {
+			this.data('pagination').pages = count;
 		},
 
 		getCurrentPage: function () {
@@ -132,6 +157,10 @@
 			return this;
 		},
 
+		getItemsOnPage: function() {
+			return this.data('pagination').itemsOnPage;
+		},
+
 		_draw: function() {
 			var	o = this.data('pagination'),
 				interval = methods._getInterval(o),
@@ -139,51 +168,105 @@
 				tagName;
 
 			methods.destroy.call(this);
-			
+
 			tagName = (typeof this.prop === 'function') ? this.prop('tagName') : this.attr('tagName');
 
-			var $panel = tagName === 'UL' ? this : $('<ul></ul>').appendTo(this);
+			var $panel = tagName === 'UL' ? this : $('<ul' + (o.listStyle ? ' class="' + o.listStyle + '"' : '') + '></ul>').appendTo(this);
 
 			// Generate Prev link
 			if (o.prevText) {
-				methods._appendItem.call(this, o.currentPage - 1, {text: o.prevText, classes: 'prev'});
+				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage - 1 : o.currentPage + 1, {text: o.prevText, classes: 'prev'});
+			}
+
+			// Generate Next link (if option set for at front)
+			if (o.nextText && o.nextAtFront) {
+				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage + 1 : o.currentPage - 1, {text: o.nextText, classes: 'next'});
 			}
 
 			// Generate start edges
-			if (interval.start > 0 && o.edges > 0) {
-				var end = Math.min(o.edges, interval.start);
-				for (i = 0; i < end; i++) {
-					methods._appendItem.call(this, i);
+			if (!o.invertPageOrder) {
+				if (interval.start > 0 && o.edges > 0) {
+					if(o.useStartEdge) {
+						var end = Math.min(o.edges, interval.start);
+						for (i = 0; i < end; i++) {
+							methods._appendItem.call(this, i);
+						}
+					}
+					if (o.edges < interval.start && (interval.start - o.edges != 1)) {
+						$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
+					} else if (interval.start - o.edges == 1) {
+						methods._appendItem.call(this, o.edges);
+					}
 				}
-				if (o.edges < interval.start && (interval.start - o.edges != 1)) {
-					$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
-				} else if (interval.start - o.edges == 1) {
-					methods._appendItem.call(this, o.edges);
+			} else {
+				if (interval.end < o.pages && o.edges > 0) {
+					if(o.useStartEdge) {
+						var begin = Math.max(o.pages - o.edges, interval.end);
+						for (i = o.pages - 1; i >= begin; i--) {
+							methods._appendItem.call(this, i);
+						}
+					}
+
+					if (o.pages - o.edges > interval.end && (o.pages - o.edges - interval.end != 1)) {
+						$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
+					} else if (o.pages - o.edges - interval.end == 1) {
+						methods._appendItem.call(this, interval.end);
+					}
 				}
 			}
 
 			// Generate interval links
-			for (i = interval.start; i < interval.end; i++) {
-				methods._appendItem.call(this, i);
-			}
-
-			// Generate end edges
-			if (interval.end < o.pages && o.edges > 0) {
-				if (o.pages - o.edges > interval.end && (o.pages - o.edges - interval.end != 1)) {
-					$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
-				} else if (o.pages - o.edges - interval.end == 1) {
-					methods._appendItem.call(this, interval.end++);
+			if (!o.invertPageOrder) {
+				for (i = interval.start; i < interval.end; i++) {
+					methods._appendItem.call(this, i);
 				}
-				var begin = Math.max(o.pages - o.edges, interval.end);
-				for (i = begin; i < o.pages; i++) {
+			} else {
+				for (i = interval.end - 1; i >= interval.start; i--) {
 					methods._appendItem.call(this, i);
 				}
 			}
 
-			// Generate Next link
-			if (o.nextText) {
-				methods._appendItem.call(this, o.currentPage + 1, {text: o.nextText, classes: 'next'});
+			// Generate end edges
+			if (!o.invertPageOrder) {
+				if (interval.end < o.pages && o.edges > 0) {
+					if (o.pages - o.edges > interval.end && (o.pages - o.edges - interval.end != 1)) {
+						$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
+					} else if (o.pages - o.edges - interval.end == 1) {
+						methods._appendItem.call(this, interval.end);
+					}
+					if(o.useEndEdge) {
+						var begin = Math.max(o.pages - o.edges, interval.end);
+						for (i = begin; i < o.pages; i++) {
+							methods._appendItem.call(this, i);
+						}
+					}
+				}
+			} else {
+				if (interval.start > 0 && o.edges > 0) {
+					if (o.edges < interval.start && (interval.start - o.edges != 1)) {
+						$panel.append('<li class="disabled"><span class="ellipse">' + o.ellipseText + '</span></li>');
+					} else if (interval.start - o.edges == 1) {
+						methods._appendItem.call(this, o.edges);
+					}
+
+					if(o.useEndEdge) {
+						var end = Math.min(o.edges, interval.start);
+						for (i = end - 1; i >= 0; i--) {
+							methods._appendItem.call(this, i);
+						}
+					}
+				}
 			}
+
+			// Generate Next link (unless option is set for at front)
+			if (o.nextText && !o.nextAtFront) {
+				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage + 1 : o.currentPage - 1, {text: o.nextText, classes: 'next'});
+			}
+
+			if (o.ellipsePageSet && !o.disabled) {
+				methods._ellipseClick.call(this, $panel);
+			}
+
 		},
 
 		_getPages: function(o) {
@@ -215,7 +298,7 @@
 			options = $.extend(options, opts || {});
 
 			if (pageIndex == o.currentPage || o.disabled) {
-				if (o.disabled) {
+				if (o.disabled || options.classes === 'prev' || options.classes === 'next') {
 					$linkWrapper.addClass('disabled');
 				} else {
 					$linkWrapper.addClass('active');
@@ -248,6 +331,47 @@
 				methods._draw.call(this);
 			}
 			return o.onPageClick(pageIndex + 1, event);
+		},
+
+
+		_ellipseClick: function($panel) {
+			var self = this,
+				o = this.data('pagination'),
+				$ellip = $panel.find('.ellipse');
+			$ellip.addClass('clickable').parent().removeClass('disabled');
+			$ellip.click(function(event) {
+				if (!o.disable) {
+					var $this = $(this),
+						val = (parseInt($this.parent().prev().text(), 10) || 0) + 1;
+					$this
+						.html('<input type="number" min="1" max="' + o.pages + '" step="1" value="' + val + '">')
+						.find('input')
+						.focus()
+						.click(function(event) {
+							// prevent input number arrows from bubbling a click event on $ellip
+							event.stopPropagation();
+						})
+						.keyup(function(event) {
+							var val = $(this).val();
+							if (event.which === 13 && val !== '') {
+								// enter to accept
+								methods._selectPage.call(self, val - 1);
+							} else if (event.which === 27) {
+								// escape to cancel
+								$ellip.empty().html(o.ellipseText);
+							}
+						})
+						.bind('blur', function(event) {
+							var val = $(this).val();
+							if (val !== '') {
+								methods._selectPage.call(self, val - 1);
+							}
+							$ellip.empty().html(o.ellipseText);
+							return false;
+						});
+				}
+				return false;
+			});
 		}
 
 	};
