@@ -1,7 +1,7 @@
 /**
- * simplePagination.js v1.6
+ * simplepagination.js v1.1.1
  * A simple jQuery pagination plugin.
- * http://flaviusmatis.github.com/simplePagination.js/
+ * https://github.com/bux578/simplePagination.js
  *
  * Copyright 2012, Flavius Matis
  * Released under the MIT license.
