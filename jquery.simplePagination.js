@@ -24,6 +24,7 @@
 				prevText: 'Prev',
 				nextText: 'Next',
 				ellipseText: '&hellip;',
+				ellipsePageSet: true,
 				cssStyle: 'light-theme',
 				listStyle: '',
 				labelMap: [],
@@ -264,6 +265,11 @@
 			if (o.nextText && !o.nextAtFront) {
 				methods._appendItem.call(this, !o.invertPageOrder ? o.currentPage + 1 : o.currentPage - 1, {text: o.nextText, classes: 'next', attr: { "rel": "next" }});
 			}
+
+			if (o.ellipsePageSet && !o.disabled) {
+				methods._ellipseClick.call(this, $panel);
+			}
+
 		},
 
 		_getPages: function(o) {
@@ -336,6 +342,47 @@
 				methods._draw.call(this);
 			}
 			return o.onPageClick(pageIndex + 1, event);
+		},
+
+
+		_ellipseClick: function($panel) {
+			var self = this,
+				o = this.data('pagination'),
+				$ellip = $panel.find('.ellipse');
+			$ellip.addClass('clickable').parent().removeClass('disabled');
+			$ellip.click(function(event) {
+				if (!o.disable) {
+					var $this = $(this),
+						val = (parseInt($this.parent().prev().text(), 10) || 0) + 1;
+					$this
+						.html('<input type="number" min="1" max="' + o.pages + '" step="1" value="' + val + '">')
+						.find('input')
+						.focus()
+						.click(function(event) {
+							// prevent input number arrows from bubbling a click event on $ellip
+							event.stopPropagation();
+						})
+						.keyup(function(event) {
+							var val = $(this).val();
+							if (event.which === 13 && val !== '') {
+								// enter to accept
+								methods._selectPage.call(self, val - 1);
+							} else if (event.which === 27) {
+								// escape to cancel
+								$ellip.empty().html(o.ellipseText);
+							}
+						})
+						.bind('blur', function(event) {
+							var val = $(this).val();
+							if (val !== '') {
+								methods._selectPage.call(self, val - 1);
+							}
+							$ellip.empty().html(o.ellipseText);
+							return false;
+						});
+				}
+				return false;
+			});
 		}
 
 	};
