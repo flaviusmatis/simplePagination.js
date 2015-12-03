@@ -355,6 +355,7 @@
 							var val = $(this).val();
 							if (event.which === 13 && val !== '') {
 								// enter to accept
+								if ((val>0)&&(val<=o.pages))
 								methods._selectPage.call(self, val - 1);
 							} else if (event.which === 27) {
 								// escape to cancel
