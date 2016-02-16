@@ -1,0 +1,30 @@
+{
+  "name": "simple-pagination.js",
+  "version": "1.0.0",
+  "description": "'A simple jQuery pagination plugin.'",
+  "main": "jquery.simplePagination.js",
+  "directories": {
+    "test": "tests"
+  },
+  "style": "simplePagination.css",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shabith/simplePagination.js.git"
+  },
+  "keywords": [
+    "pagination",
+    "simple-pagination",
+    "simplePagination",
+    "simplePagination.js",
+    "simple-pagination.js"
+  ],
+  "author": "Flavius Matis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/flaviusmatis/simplePagination.js/issues"
+  },
+  "homepage": "https://github.com/flaviusmatis/simplePagination.js#readme"
+}

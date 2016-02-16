@@ -1,2 +1,15 @@
 .idea/*
 .DS_Store
+node_modules
+.npm
+npm-debug.log*
+# Created by https://www.gitignore.io/api/node
+
+### Node ###
+# Logs
+logs
+*.log
+npm-debug.log*
+
+
+
