@@ -26,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/flaviusmatis/simplePagination.js/issues"
   },
-  "homepage": "https://github.com/flaviusmatis/simplePagination.js#readme"
+  "homepage": "https://github.com/flaviusmatis/simplePagination.js#readme",
+  "dependencies": {
+    "jquery": "^2.2.0"
+  }
 }
