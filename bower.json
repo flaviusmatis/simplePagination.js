@@ -11,7 +11,7 @@
     "jquery",
     "pagination"
   ],
-  "license": "BSD",
+  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
