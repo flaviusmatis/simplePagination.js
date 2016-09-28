@@ -19,6 +19,7 @@
 				displayedPages: 5,
 				edges: 2,
 				currentPage: 0,
+				useAnchors: true,
 				hrefTextPrefix: '#page-',
 				hrefTextSuffix: '',
 				prevText: 'Prev',
@@ -305,7 +306,11 @@
 				}
 				$link = $('<span class="current">' + (options.text) + '</span>');
 			} else {
-				$link = $('<a href="' + o.hrefTextPrefix + (pageIndex + 1) + o.hrefTextSuffix + '" class="page-link">' + (options.text) + '</a>');
+				if (o.useAnchors) {
+					$link = $('<a href="' + o.hrefTextPrefix + (pageIndex + 1) + o.hrefTextSuffix + '" class="page-link">' + (options.text) + '</a>');
+				} else {
+					$link = $('<span >' + (options.text) + '</span>');
+				}
 				$link.click(function(event){
 					return methods._selectPage.call(self, pageIndex, event);
 				});
