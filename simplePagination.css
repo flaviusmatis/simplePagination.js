@@ -38,6 +38,9 @@ span.ellipse.clickable {
 /*------------------------------------*\
 	Compact Theme Styles
 \*------------------------------------*/
+.compact-theme span {
+	cursor:pointer;
+}
 
 .compact-theme a, .compact-theme span {
 	float: left;
@@ -60,7 +63,7 @@ span.ellipse.clickable {
 	background: linear-gradient(top, #ffffff 0%,#efefef 100%); /* W3C */
 }
 
-.compact-theme a:hover {
+.compact-theme a:hover, .compact-theme li:not(.disabled):not(.active) span:hover {
 	text-decoration: none;
 	background: #efefef; /* Old browsers */
 	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); /* FF3.6+ */
@@ -100,6 +103,9 @@ span.ellipse.clickable {
 /*------------------------------------*\
 	Light Theme Styles
 \*------------------------------------*/
+.light-theme span {
+	cursor:pointer;
+}
 
 .light-theme a, .light-theme span {
 	float: left;
@@ -123,7 +129,7 @@ span.ellipse.clickable {
 	background: linear-gradient(top, #ffffff 0%,#efefef 100%); /* W3C */
 }
 
-.light-theme a:hover {
+.light-theme a:hover, .light-theme li:not(.disabled):not(.active) span:hover {
 	text-decoration: none;
 	background: #FCFCFC;
 }
@@ -148,6 +154,9 @@ span.ellipse.clickable {
 /*------------------------------------*\
 	Dark Theme Styles
 \*------------------------------------*/
+.dark-theme span {
+	cursor:pointer;
+}
 
 .dark-theme a, .dark-theme span {
 	float: left;
@@ -171,7 +180,7 @@ span.ellipse.clickable {
 	background: linear-gradient(top, #555 0%,#333 100%); /* W3C */
 }
 
-.dark-theme a:hover {
+.dark-theme a:hover, .dark-theme li:not(.disabled):not(.active) span:hover {
 	text-decoration: none;
 	background: #444;
 }
