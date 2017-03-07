@@ -22,6 +22,7 @@
 				useAnchors: true,
 				hrefTextPrefix: '#page-',
 				hrefTextSuffix: '',
+				preventHashChange: false,
 				prevText: 'Prev',
 				nextText: 'Next',
 				ellipseText: '&hellip;',
@@ -312,6 +313,10 @@
 					$link = $('<span >' + (options.text) + '</span>');
 				}
 				$link.click(function(event){
+					if (o.preventHashChange == true) {
+						event.preventDefault();
+					}
+
 					return methods._selectPage.call(self, pageIndex, event);
 				});
 			}
