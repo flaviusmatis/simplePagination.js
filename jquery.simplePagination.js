@@ -34,6 +34,9 @@
 				invertPageOrder: false,
 				useStartEdge : true,
 				useEndEdge : true,
+				beforeChange: function(pageNumber,nextPageNumber, event) {
+					return Promise.resolve(true)
+				},
 				onPageClick: function(pageNumber, event) {
 					// Callback triggered when a page is clicked
 					// Page number is given as an optional parameter
@@ -330,12 +333,23 @@
 		},
 
 		_selectPage: function(pageIndex, event) {
+			var that = this
 			var o = this.data('pagination');
+			var currentPage = o.currentPage + 1;
 			o.currentPage = pageIndex;
-			if (o.selectOnClick) {
-				methods._draw.call(this);
-			}
-			return o.onPageClick(pageIndex + 1, event);
+
+			var promise = o.beforeChange(currentPage, pageIndex + 1, event);
+			promise.then(function(pass){
+				if ( pass ){
+					o.currentPage = pageIndex;
+					if (o.selectOnClick) {
+						methods._draw.call(that);
+					}
+					// return o.onPageClick(currentPage, pageIndex + 1, event);
+					return o.onPageClick(currentPage, pageIndex + 1, event);
+				}
+			})
+
 		},
 
 

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title> Simple Pagination</title>
+	<link rel="stylesheet" href="./../simplePagination.css">
+	<style>
+		.text-center{
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<h1> Simple Pagination </h1>
+	<div id="pagination"></div>
+
+	<script src="./lib/jquery.min.js"></script>
+	<script src="./../jquery.simplePagination.js"></script>
+
+	<script>
+		$("#pagination").pagination({
+			items: 10,
+			cssStyle: 'light-theme',
+			prevText: "<",
+			nextText: ">",
+			listStyle: "text-center",
+			beforeChange: function(pageNumber,nextPageNumber, event){
+				console.log("event", "beforeChange")
+				console.log("pageNumber" , pageNumber)
+				console.log("nextPageNumber" , nextPageNumber)
+
+				return new Promise(function(resolve,reject){
+					if ( confirm("Change page?") ) {
+						return resolve(true)
+					}
+					return resolve(false)
+				})
+			},
+			onPageClick: function(prevPageNumber,pageNumber, event){
+				console.log("event", "onPageClick")
+				console.log("prevPageNumber", prevPageNumber)
+				console.log("pageNumber", pageNumber)
+			},
+			onInit: function(){
+				console.log("event", "onInit")
+			}
+		});
+	</script>
+</body>
+</html>

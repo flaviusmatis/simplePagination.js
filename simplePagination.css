@@ -21,11 +21,15 @@ ul.simple-pagination {
 	margin: 0;
 }
 
+.simple-pagination ul.center {
+	text-align: center;
+}
+
 .simple-pagination li {
 	list-style: none;
 	padding: 0;
 	margin: 0;
-	float: left;
+	display: inline-block;
 }
 span.ellipse.clickable {
 	cursor: pointer;
