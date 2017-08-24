@@ -339,13 +339,12 @@
 			o.currentPage = pageIndex;
 
 			var promise = o.beforeChange(currentPage, pageIndex + 1, event);
-			promise.then(function(pass){
-				if ( pass ){
+			promise.then(function(ifChangePage){
+				if ( ifChangePage ){
 					o.currentPage = pageIndex;
 					if (o.selectOnClick) {
 						methods._draw.call(that);
 					}
-					// return o.onPageClick(currentPage, pageIndex + 1, event);
 					return o.onPageClick(currentPage, pageIndex + 1, event);
 				}
 			})
