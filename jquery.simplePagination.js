@@ -24,6 +24,7 @@
 				hrefTextSuffix: '',
 				prevText: 'Prev',
 				nextText: 'Next',
+				hideSingle: true,
 				ellipseText: '&hellip;',
 				ellipsePageSet: true,
 				cssStyle: 'light-theme',
@@ -167,6 +168,9 @@
 				interval = methods._getInterval(o),
 				i,
 				tagName;
+			if (o.items <= o.itemsOnPage && o.hideSingle) {
+				return;
+			}
 
 			methods.destroy.call(this);
 
