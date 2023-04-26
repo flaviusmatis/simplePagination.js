@@ -60,7 +60,7 @@ span.ellipse.clickable {
 	background: -webkit-linear-gradient(top, #ffffff 0%,#efefef 100%); /* Chrome10+,Safari5.1+ */
 	background: -o-linear-gradient(top, #ffffff 0%,#efefef 100%); /* Opera11.10+ */
 	background: -ms-linear-gradient(top, #ffffff 0%,#efefef 100%); /* IE10+ */
-	background: linear-gradient(top, #ffffff 0%,#efefef 100%); /* W3C */
+	background: linear-gradient(to bottom, #ffffff 0%,#efefef 100%); /* W3C */
 }
 
 .compact-theme a:hover, .compact-theme li:not(.disabled):not(.active) span:hover {
@@ -71,7 +71,7 @@ span.ellipse.clickable {
 	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); /* Chrome10+,Safari5.1+ */
 	background: -o-linear-gradient(top, #efefef 0%,#bbbbbb 100%); /* Opera11.10+ */
 	background: -ms-linear-gradient(top, #efefef 0%,#bbbbbb 100%); /* IE10+ */
-	background: linear-gradient(top, #efefef 0%,#bbbbbb 100%); /* W3C */
+	background: linear-gradient(to bottom, #efefef 0%,#bbbbbb 100%); /* W3C */
 }
 
 .compact-theme li:first-child a, .compact-theme li:first-child span {
@@ -90,7 +90,7 @@ span.ellipse.clickable {
 	background: -webkit-linear-gradient(top, #bbbbbb 0%,#efefef 100%); /* Chrome10+,Safari5.1+ */
 	background: -o-linear-gradient(top, #bbbbbb 0%,#efefef 100%); /* Opera11.10+ */
 	background: -ms-linear-gradient(top, #bbbbbb 0%,#efefef 100%); /* IE10+ */
-	background: linear-gradient(top, #bbbbbb 0%,#efefef 100%); /* W3C */
+	background: linear-gradient(to bottom, #bbbbbb 0%,#efefef 100%); /* W3C */
 	cursor: default;
 }
 
@@ -126,7 +126,7 @@ span.ellipse.clickable {
 	background: -webkit-linear-gradient(top, #ffffff 0%,#efefef 100%); /* Chrome10+,Safari5.1+ */
 	background: -o-linear-gradient(top, #ffffff 0%,#efefef 100%); /* Opera11.10+ */
 	background: -ms-linear-gradient(top, #ffffff 0%,#efefef 100%); /* IE10+ */
-	background: linear-gradient(top, #ffffff 0%,#efefef 100%); /* W3C */
+	background: linear-gradient(to bottom, #ffffff 0%,#efefef 100%); /* W3C */
 }
 
 .light-theme a:hover, .light-theme li:not(.disabled):not(.active) span:hover {
@@ -177,7 +177,7 @@ span.ellipse.clickable {
 	background: -webkit-linear-gradient(top, #555 0%,#333 100%); /* Chrome10+,Safari5.1+ */
 	background: -o-linear-gradient(top, #555 0%,#333 100%); /* Opera11.10+ */
 	background: -ms-linear-gradient(top, #555 0%,#333 100%); /* IE10+ */
-	background: linear-gradient(top, #555 0%,#333 100%); /* W3C */
+	background: linear-gradient(to bottom, #555 0%,#333 100%); /* W3C */
 }
 
 .dark-theme a:hover, .dark-theme li:not(.disabled):not(.active) span:hover {
